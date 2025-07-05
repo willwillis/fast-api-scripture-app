@@ -130,6 +130,14 @@ export const ScriptureReader: React.FC = () => {
               >
                 {loading ? '[LOADING...]' : '[RANDOM]'}
               </button>
+              <a
+                href="https://scriptures-fast-api.onrender.com/docs#/scriptures"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-1 text-xs rounded border transition-colors bg-cursor-surface/20 text-cursor-text border-cursor-border hover:bg-cursor-surface/30"
+              >
+                [API]
+              </a>
             </div>
           </div>
         </div>
