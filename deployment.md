@@ -1,6 +1,6 @@
 # Deployment Guide - Fast Scriptures
 
-This project uses Render for both frontend and backend deployment with GitHub Actions for automated deployments.
+This project uses Render for both frontend and backend deployment with automatic deployments on code pushes.
 
 ## 🎯 Deployment Strategy
 
@@ -8,7 +8,7 @@ This project uses Render for both frontend and backend deployment with GitHub Ac
 - **Backend**: FastAPI Web Service with SQLite
 - **Frontend**: Static Site hosting
 - **Database**: SQLite (embedded, no persistence needed)
-- **CI/CD**: GitHub Actions
+- **CI/CD**: Render Auto-Deploy
 
 ### **Why Render-Only?**
 - ✅ **Single platform**: Everything in one place
@@ -50,34 +50,13 @@ This project uses Render for both frontend and backend deployment with GitHub Ac
 - Global CDN distribution
 - Automatic rebuilds on code changes
 
-## 🔧 GitHub Actions Setup
+## 🔧 Render Auto-Deployment
 
-### **Workflow Files**:
-- `.github/workflows/deploy.yml` - Unified deployment workflow
-- `.github/workflows/frontend-deploy.yml` - Frontend-only deployment (legacy)
-- `.github/workflows/backend-deploy.yml` - Backend-only deployment (legacy)
-
-### **Deployment Logic**:
-1. **Backend deploys first** (if backend/submodules changed)
-2. **Frontend deploys second** (if frontend changed)
-3. **Conditional deployment** (only deploys what changed)
-4. **Includes submodules** (for SQLite database)
-
-### **Required GitHub Secrets**:
-
-```bash
-# Render API Token (get from Render dashboard)
-RENDER_TOKEN=your_render_api_token
-
-# Backend Service ID (get from Render service URL)
-RENDER_BACKEND_SERVICE_ID=your_backend_service_id
-
-# Frontend Service ID (get from Render service URL)
-RENDER_FRONTEND_SERVICE_ID=your_frontend_service_id
-
-# Backend API URL for frontend
-VITE_API_URL=https://your-backend-service.onrender.com
-```
+### **Deployment Process**:
+- **Automatic**: Render detects code pushes and deploys automatically
+- **No Configuration**: No GitHub Actions or secrets needed
+- **Simple**: Just push to main branch and Render handles the rest
+- **Includes Submodules**: SQLite database is automatically included
 
 ## 🚀 Setup Instructions
 
@@ -99,29 +78,7 @@ VITE_API_URL=https://your-backend-service.onrender.com
    - Set publish directory: `dist`
    - Add environment variable: `VITE_API_URL=https://your-backend-service.onrender.com`
 
-### **Step 2: Get Service IDs**
-
-1. Go to each service in Render Dashboard
-2. Copy the service ID from the URL: `https://dashboard.render.com/web/srv-XXXXXXXXXXXXXX`
-3. The service ID is the `srv-XXXXXXXXXXXXXX` part
-
-### **Step 3: Get Render API Token**
-
-1. Go to Render Dashboard → Account Settings
-2. Scroll to "API Keys"
-3. Create a new API key
-4. Copy the token
-
-### **Step 4: Configure GitHub Secrets**
-
-1. Go to your GitHub repository → Settings → Secrets and variables → Actions
-2. Add the following secrets:
-   - `RENDER_TOKEN`
-   - `RENDER_BACKEND_SERVICE_ID`
-   - `RENDER_FRONTEND_SERVICE_ID`
-   - `VITE_API_URL`
-
-### **Step 5: Configure CORS**
+### **Step 2: Configure CORS**
 
 1. **Get your frontend domain** from Render Dashboard (e.g., `https://your-app-name.onrender.com`)
 2. **Update CORS configuration** in `backend/app/utils/config.py`:
@@ -136,17 +93,17 @@ VITE_API_URL=https://your-backend-service.onrender.com
    ```
 3. **Commit and push** the changes to trigger a new backend deployment
 
-### **Step 6: Test Deployment**
+### **Step 3: Test Deployment**
 
 1. Push changes to `main` branch
-2. Check GitHub Actions tab for deployment status
+2. Check Render Dashboard for deployment status
 3. Verify both services are running on Render
 4. Test the frontend to ensure it can call the backend API
 
 ## 🔄 Deployment Flow
 
 ### **Automatic Deployment**:
-1. **Push to main branch** → Triggers GitHub Actions
+1. **Push to main branch** → Render detects changes
 2. **Backend deploys** → FastAPI service updates
 3. **Frontend deploys** → React app rebuilds with new API URL
 4. **Services restart** → New code is live
@@ -164,7 +121,7 @@ VITE_API_URL=https://your-backend-service.onrender.com
 - Environment variables
 - Custom domains
 
-### **GitHub Actions**:
+### **Render Dashboard**:
 - Deployment status
 - Build logs
 - Error tracking
@@ -196,7 +153,7 @@ VITE_API_URL=https://your-backend-service.onrender.com
 
 ### **Logs**:
 - Backend logs: Render Dashboard → Service → Logs
-- Frontend build logs: GitHub Actions → Workflow runs
+- Frontend build logs: Render Dashboard → Frontend service
 - API errors: Backend service logs
 
 ## 💰 Cost Considerations

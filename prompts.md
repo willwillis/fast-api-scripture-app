@@ -33,7 +33,7 @@ suggest a folder structure and naming convention to accomplish this.
 ## Deployment
 - where is a good place to deploy the front and back end? Would cloudflare be suitable? Are python service workers still in beta?
 - you said both railway and cloudflare pages have generous free tiers. I believe that's true for cloudflare, however I only see a $5 hobby plan for railway. https://railway.com/pricing
-- Whichever deployment option we choose, it'll need to have integration to github actions
+- Whichever deployment option we choose, it'll need to have automatic deployment on code pushes
 - If I choose Render, can I still use sqlite, or will I need to migrate to postgres? I would like to stay with sqlite if possible
 - If I'm going to use Render, why not use it exclusively for front and back end. As my data will never change, and has no requirements to persist, it's fine if storage is ephemeral
 - can you save this deployment stragegy into deployment.md in the root of the project?
