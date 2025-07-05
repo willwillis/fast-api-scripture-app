@@ -107,7 +107,6 @@ export const useScriptures = () => {
   }, []);
 
   const getRandomScripture = useCallback(async () => {
-    setLoading(true);
     setError(null);
     try {
       const data = await scriptureApi.getRandomScripture();
@@ -115,8 +114,6 @@ export const useScriptures = () => {
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch random scripture');
       return null;
-    } finally {
-      setLoading(false);
     }
   }, []);
 
