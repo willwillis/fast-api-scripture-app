@@ -24,8 +24,8 @@ This project uses Render for both frontend and backend deployment with GitHub Ac
 **Service Type**: Web Service
 
 **Configuration**:
-- **Build Command**: `cd backend && uv sync`
-- **Start Command**: `cd backend && uv run uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+- **Build Command**: `uv sync && python setup_database.py`
+- **Start Command**: `uv run uvicorn app.main:app --host 0.0.0.0 --port $PORT`
 - **Environment Variables**:
   - `RENDER=true`
   - `PYTHON_VERSION=3.11`
@@ -87,16 +87,16 @@ VITE_API_URL=https://your-backend-service.onrender.com
    - Go to Render Dashboard
    - Click "New +" → "Web Service"
    - Connect your GitHub repository
-   - Set build command: `cd backend && uv sync`
-   - Set start command: `cd backend && uv run uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+   - Set build command: `uv sync && python setup_database.py`
+   - Set start command: `uv run uvicorn app.main:app --host 0.0.0.0 --port $PORT`
    - Add environment variable: `RENDER=true`
 
 2. **Frontend Service**:
    - Go to Render Dashboard
    - Click "New +" → "Static Site"
    - Connect your GitHub repository
-   - Set build command: `cd frontend && npm ci && npm run build`
-   - Set publish directory: `frontend/dist`
+   - Set build command: `npm ci && npm run build`
+   - Set publish directory: `dist`
    - Add environment variable: `VITE_API_URL=https://your-backend-service.onrender.com`
 
 ### **Step 2: Get Service IDs**
