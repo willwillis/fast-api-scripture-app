@@ -1,4 +1,4 @@
-# Scripture App
+# A FastAPI & React Scripture App
 
 A modern, mobile-first scripture reading (and searching) application built with modern web technologies.
 
