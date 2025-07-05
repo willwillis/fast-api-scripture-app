@@ -40,6 +40,24 @@ export const ScriptureReader: React.FC = () => {
     return volumeMap[volumeShortTitle] || 0;
   };
 
+  // Helper function to highlight search terms in text
+  const highlightSearchTerms = (text: string, searchQuery: string): React.ReactNode => {
+    if (!searchQuery.trim()) return text;
+    
+    const regex = new RegExp(`(${searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    const parts = text.split(regex);
+    
+    return parts.map((part, index) => 
+      regex.test(part) ? (
+        <mark key={index} className="bg-cursor-accent/10 text-cursor-accent/80 font-normal">
+          {part}
+        </mark>
+      ) : (
+        part
+      )
+    );
+  };
+
   const loadRandomScripture = async () => {
     try {
       const scripture = await getRandomScripture();
@@ -239,8 +257,8 @@ export const ScriptureReader: React.FC = () => {
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-sm text-cursor-text-muted">
-                    <span className="text-cursor-accent">[</span> SEARCH RESULTS: {searchResults.total} FOUND
-                    <span className="text-cursor-accent">]</span>
+                    <span className="text-cursor-accent">[ </span> SEARCH RESULTS: {searchResults.total} FOUND
+                    <span className="text-cursor-accent"> ]</span>
                   </h2>
                   
                   {/* Volume Filter Controls */}
@@ -257,9 +275,9 @@ export const ScriptureReader: React.FC = () => {
                             ? 'bg-cursor-accent/20 text-cursor-accent border-cursor-accent/30'
                             : 'bg-cursor-surface/20 text-cursor-text border-cursor-border hover:bg-cursor-surface/30'
                         }`}
-                      >
-                        [{volume}: {count}]
-                      </button>
+                                              >
+                          {volume}: {count}
+                        </button>
                     ))}
                     
                     {/* Reset Filter Button */}
@@ -281,10 +299,10 @@ export const ScriptureReader: React.FC = () => {
                       className="p-3 bg-cursor-surface/50 border border-cursor-border/50 rounded cursor-pointer hover:bg-cursor-surface/70 hover:border-cursor-border transition-colors"
                     >
                       <div className="text-xs text-cursor-accent mb-1">
-                        {scripture.verse_short_title}
+                        {highlightSearchTerms(scripture.verse_short_title, searchQuery)}
                       </div>
                       <div className="text-sm text-cursor-text leading-relaxed">
-                        {scripture.scripture_text}
+                        {highlightSearchTerms(scripture.scripture_text, searchQuery)}
                       </div>
                     </div>
                   ))}
