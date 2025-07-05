@@ -2,7 +2,13 @@ import os
 from pathlib import Path
 
 # Database configuration
-DATABASE_PATH = Path(__file__).parent.parent.parent.parent / "submodules" / "lds-scriptures" / "sqlite" / "lds-scriptures-sqlite.db"
+if os.getenv('RENDER'):  # Running on Render
+    # Use the database file in the app directory
+    DATABASE_PATH = Path(__file__).parent.parent.parent / "submodules" / "lds-scriptures" / "sqlite" / "lds-scriptures-sqlite.db"
+else:
+    # Local development
+    DATABASE_PATH = Path(__file__).parent.parent.parent.parent / "submodules" / "lds-scriptures" / "sqlite" / "lds-scriptures-sqlite.db"
+
 DATABASE_URL = f"sqlite:///{DATABASE_PATH}"
 
 # API configuration
@@ -16,4 +22,6 @@ CORS_ORIGINS = [
     "http://localhost:3000",  # Alternative dev port
     "http://127.0.0.1:5173",
     "http://127.0.0.1:3000",
+    # Add your Cloudflare Pages domain here
+    "https://fast-scriptures-frontend.pages.dev",
 ] 
