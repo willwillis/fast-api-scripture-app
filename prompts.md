@@ -5,8 +5,6 @@ I want the style to be dark background with soft muted hilights, similar to the 
 # Backend
 FastAPI using sqlite database stored in ./submodules/sqlite/lds-scriptures-sqlite.db there is a schema.txt and README  and other files describing the data structure in that folder
 
-## Stack
-leverage uv 
 
 # Frontend
 Vite + React 
@@ -17,3 +15,7 @@ Before starting the project suggest to me what CSS library or framework I might 
 # Code Organization
 I want to have the front-end code separated from the back-end fast api code
 suggest a folder structure and naming convention to accomplish this.
+
+# Further Direction
+- I'll be using uv, not pip for this project
+- Addd the appropriate patterns to my .gitignore for React and Python projects
