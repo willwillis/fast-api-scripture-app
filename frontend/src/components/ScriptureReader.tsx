@@ -145,7 +145,7 @@ export const ScriptureReader: React.FC = () => {
                     : 'bg-cursor-surface/20 text-cursor-text border-cursor-border hover:bg-cursor-surface/30'
                 }`}
               >
-                [READ]
+                READ
               </button>
               <button
                 onClick={() => {
@@ -160,7 +160,7 @@ export const ScriptureReader: React.FC = () => {
                     : 'bg-cursor-surface/20 text-cursor-text border-cursor-border hover:bg-cursor-surface/30'
                 }`}
               >
-                [SEARCH]
+                SEARCH
               </button>
               <button
                 onClick={loadRandomScripture}
@@ -171,7 +171,7 @@ export const ScriptureReader: React.FC = () => {
                     : 'bg-cursor-surface/20 text-cursor-text border-cursor-border hover:bg-cursor-surface/30'
                 }`}
               >
-                {loading ? '[LOADING...]' : '[RANDOM]'}
+                {loading ? '[LOADING...]' : 'RANDOM'}
               </button>
               <a
                 href="https://scriptures-fast-api.onrender.com/docs#/scriptures"
@@ -179,7 +179,7 @@ export const ScriptureReader: React.FC = () => {
                 rel="noopener noreferrer"
                 className="px-3 py-1 text-xs rounded border transition-colors bg-cursor-surface/20 text-cursor-text border-cursor-border hover:bg-cursor-surface/30"
               >
-                [API]
+                API
               </a>
             </div>
           </div>
@@ -202,7 +202,7 @@ export const ScriptureReader: React.FC = () => {
               disabled={loading || !searchQuery.trim()}
               className="px-4 py-2 bg-cursor-accent/20 hover:bg-cursor-accent/30 text-cursor-accent text-sm rounded border border-cursor-accent/30 transition-colors disabled:opacity-50 sm:w-auto w-full"
             >
-              {loading ? '[SEARCHING...]' : '[SEARCH]'}
+              {loading ? 'SEARCHING...' : 'SEARCH'}
             </button>
           </form>
         </div>
@@ -257,8 +257,8 @@ export const ScriptureReader: React.FC = () => {
               <div className="mb-8">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
                   <h2 className="text-sm text-cursor-text-muted">
-                    <span className="text-cursor-accent">[ </span> SEARCH RESULTS: {searchResults.total} FOUND
-                    <span className="text-cursor-accent"> ]</span>
+                    <span className="text-cursor-accent"> </span> SEARCH RESULTS: {searchResults.total} FOUND
+                    <span className="text-cursor-accent"> </span>
                   </h2>
                   
                   {/* Volume Filter Controls */}
