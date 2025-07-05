@@ -45,6 +45,7 @@ export const ScriptureReader: React.FC = () => {
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
+      setCurrentScripture(null); // Clear any previous scripture
       await searchScriptures({ query: searchQuery.trim() });
       setViewMode('search');
     }
@@ -96,6 +97,7 @@ export const ScriptureReader: React.FC = () => {
                   setViewMode('navigation');
                   setCurrentScripture(null);
                   clearSearchResults();
+                  setSearchQuery(''); // Also clear the search query
                 }}
                 className={`px-3 py-1 text-xs rounded border transition-colors ${
                   viewMode === 'navigation'
@@ -110,6 +112,7 @@ export const ScriptureReader: React.FC = () => {
                   setViewMode('search');
                   setCurrentScripture(null);
                   clearSearchResults();
+                  setSearchQuery(''); // Also clear the search query
                 }}
                 className={`px-3 py-1 text-xs rounded border transition-colors ${
                   viewMode === 'search'
@@ -199,7 +202,7 @@ export const ScriptureReader: React.FC = () => {
         )}
 
         {/* Search Mode */}
-        {(viewMode === 'search' || viewMode === 'random') && (
+        {viewMode === 'search' && (
           <div>
             {/* Search Results */}
             {searchResults && searchResults.scriptures.length > 0 && (
@@ -227,7 +230,7 @@ export const ScriptureReader: React.FC = () => {
               </div>
             )}
 
-            {/* Current Scripture Display */}
+            {/* Current Scripture Display (only when a search result is clicked) */}
             {currentScripture && (
               <div className="bg-cursor-surface/30 border border-cursor-border rounded-lg p-6">
                 <div className="mb-4">
@@ -253,6 +256,23 @@ export const ScriptureReader: React.FC = () => {
                 </p>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Random Mode */}
+        {viewMode === 'random' && currentScripture && (
+          <div className="bg-cursor-surface/30 border border-cursor-border rounded-lg p-6">
+            <div className="mb-4">
+              <h2 className="text-lg text-cursor-accent font-semibold mb-1">
+                {currentScripture.verse_title}
+              </h2>
+              <p className="text-xs text-cursor-text-muted">
+                {currentScripture.volume_title} • {currentScripture.book_long_title}
+              </p>
+            </div>
+            <div className="text-base leading-relaxed text-cursor-text">
+              {currentScripture.scripture_text}
+            </div>
           </div>
         )}
       </main>
