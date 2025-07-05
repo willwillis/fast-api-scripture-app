@@ -1,0 +1,3 @@
+[submodule "submodules/lds-scriptures"]
+	path = submodules/lds-scriptures
+	url = https://github.com/beandog/lds-scriptures.git
