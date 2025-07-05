@@ -6,9 +6,11 @@ interface ChapterReaderProps {
   volume: Volume;
   book: Book;
   chapter: Chapter;
+  chapters: Chapter[];
+  onChapterSelect: (volume: Volume, book: Book, chapter: Chapter) => void;
 }
 
-export const ChapterReader: React.FC<ChapterReaderProps> = ({ volume, book, chapter }) => {
+export const ChapterReader: React.FC<ChapterReaderProps> = ({ volume, book, chapter, chapters, onChapterSelect }) => {
   const {
     verses,
     loading,
@@ -25,6 +27,25 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ volume, book, chap
 
   const handleVerseClick = (verseNumber: number) => {
     setCurrentVerse(currentVerse === verseNumber ? null : verseNumber);
+  };
+
+  // Navigation logic
+  const currentChapterIndex = chapters.findIndex(c => c.id === chapter.id);
+  const hasPrevious = currentChapterIndex > 0 && chapters.length > 0;
+  const hasNext = currentChapterIndex < chapters.length - 1 && chapters.length > 0;
+  
+  const handlePrevious = () => {
+    if (hasPrevious && currentChapterIndex > 0) {
+      const prevChapter = chapters[currentChapterIndex - 1];
+      onChapterSelect(volume, book, prevChapter);
+    }
+  };
+  
+  const handleNext = () => {
+    if (hasNext && currentChapterIndex < chapters.length - 1) {
+      const nextChapter = chapters[currentChapterIndex + 1];
+      onChapterSelect(volume, book, nextChapter);
+    }
   };
 
   if (error) {
@@ -63,14 +84,14 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ volume, book, chap
 
       {/* Verses */}
       {!loading && verses.length > 0 && (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {verses.map((verse) => (
             <div
               key={verse.id}
-              className={`p-4 rounded-lg border transition-colors cursor-pointer ${
+              className={`transition-colors cursor-pointer ${
                 currentVerse === verse.verse_number
-                  ? 'bg-cursor-accent/10 border-cursor-accent/30'
-                  : 'bg-cursor-surface/20 border-cursor-border/50 hover:bg-cursor-surface/40'
+                  ? 'bg-cursor-accent/5'
+                  : 'hover:bg-cursor-surface/10'
               }`}
               onClick={() => handleVerseClick(verse.verse_number)}
             >
@@ -99,15 +120,47 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ volume, book, chap
         </div>
       )}
 
-      {/* Chapter Info */}
+      {/* Chapter Info
       <div className="mt-6 pt-4 border-t border-cursor-border/30">
         <div className="text-xs text-cursor-text-muted space-y-1">
           <p>
-            <span className="text-cursor-accent">[</span> CHAPTER INFO
-            <span className="text-cursor-accent">]</span>
+            <span className="text-cursor-accent">[ CHAPTER INFO ]</span>
           </p>
           <p>Total Verses: {verses.length}</p>
           <p>Book ID: {book.id} | Chapter ID: {chapter.id}</p>
+        </div>
+      </div> */}
+
+      {/* Navigation Buttons */}
+      <div className="mt-6 pt-4 border-t border-cursor-border/30">
+        <div className="flex justify-between items-center">
+          <button
+            onClick={handlePrevious}
+            disabled={!hasPrevious}
+            className={`px-4 py-2 text-sm rounded border transition-colors ${
+              hasPrevious
+                ? 'bg-cursor-surface/20 text-cursor-text border-cursor-border hover:bg-cursor-surface/30'
+                : 'opacity-50 cursor-not-allowed bg-cursor-surface/10 text-cursor-text-muted border-cursor-border/30'
+            }`}
+          >
+            &lt;&lt; Previous
+          </button>
+          
+          <span className="text-xs text-cursor-text-muted">
+            Chapter {chapter.chapter_number} {chapters.length > 0 ? `of ${chapters.length}` : ''}
+          </span>
+          
+          <button
+            onClick={handleNext}
+            disabled={!hasNext}
+            className={`px-4 py-2 text-sm rounded border transition-colors ${
+              hasNext
+                ? 'bg-cursor-surface/20 text-cursor-text border-cursor-border hover:bg-cursor-surface/30'
+                : 'opacity-50 cursor-not-allowed bg-cursor-surface/10 text-cursor-text-muted border-cursor-border/30'
+            }`}
+          >
+            Next &gt;&gt;
+          </button>
         </div>
       </div>
     </div>

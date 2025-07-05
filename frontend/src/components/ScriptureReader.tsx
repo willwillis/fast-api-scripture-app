@@ -8,10 +8,12 @@ export const ScriptureReader: React.FC = () => {
   const {
     searchResults,
     volumeCounts,
+    chapters,
     loading,
     error,
     searchScriptures,
     getRandomScripture,
+    fetchChaptersByBook,
     clearError,
     clearSearchResults,
   } = useScriptures();
@@ -110,10 +112,13 @@ export const ScriptureReader: React.FC = () => {
     clearSearchResults();
   };
 
-  const handleChapterSelect = (volume: Volume, book: Book, chapter: Chapter) => {
+  const handleChapterSelect = async (volume: Volume, book: Book, chapter: Chapter) => {
     setSelectedChapter({ volume, book, chapter });
     setViewMode('navigation');
     clearSearchResults();
+    
+    // Fetch chapters for this book to enable navigation
+    await fetchChaptersByBook(book.id);
   };
 
   if (error) {
@@ -248,6 +253,8 @@ export const ScriptureReader: React.FC = () => {
                   volume={selectedChapter.volume}
                   book={selectedChapter.book}
                   chapter={selectedChapter.chapter}
+                  chapters={chapters}
+                  onChapterSelect={handleChapterSelect}
                 />
               ) : (
                 <div className="bg-cursor-surface/30 border border-cursor-border rounded-lg p-6">
