@@ -94,7 +94,7 @@ export const ScriptureReader: React.FC = () => {
                     : 'bg-cursor-surface/20 text-cursor-text border-cursor-border hover:bg-cursor-surface/30'
                 }`}
               >
-                [NAVIGATE]
+                [READ]
               </button>
               <button
                 onClick={() => setViewMode('search')}
