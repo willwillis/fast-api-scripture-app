@@ -194,7 +194,7 @@ export const ScriptureReader: React.FC = () => {
                     : 'bg-cursor-surface/20 text-cursor-text border-cursor-border hover:bg-cursor-surface/30'
                 }`}
               >
-                {randomLoading ? 'RAND🔃M' : 'RANDOM'}
+                {randomLoading ? 'L🔃AD' : 'RANDOM'}
               </button>
               <a
                 href="https://scriptures-fast-api.onrender.com/docs#/scriptures"
