@@ -189,7 +189,7 @@ export const ScriptureReader: React.FC = () => {
       {/* Search Bar */}
       <div className="border-b border-cursor-border bg-cursor-surface/30">
         <div className="max-w-6xl mx-auto px-4 py-3">
-          <form onSubmit={handleSearch} className="flex gap-2">
+          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-2">
             <input
               type="text"
               value={searchQuery}
@@ -200,7 +200,7 @@ export const ScriptureReader: React.FC = () => {
             <button
               type="submit"
               disabled={loading || !searchQuery.trim()}
-              className="px-4 py-2 bg-cursor-accent/20 hover:bg-cursor-accent/30 text-cursor-accent text-sm rounded border border-cursor-accent/30 transition-colors disabled:opacity-50"
+              className="px-4 py-2 bg-cursor-accent/20 hover:bg-cursor-accent/30 text-cursor-accent text-sm rounded border border-cursor-accent/30 transition-colors disabled:opacity-50 sm:w-auto w-full"
             >
               {loading ? '[SEARCHING...]' : '[SEARCH]'}
             </button>
