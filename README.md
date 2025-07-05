@@ -1,4 +1,4 @@
-# Fast Scriptures
+# Scripture App
 
 A modern, mobile-first scripture reading (and searching) application built with modern web technologies.
 
@@ -116,17 +116,6 @@ The application uses the SQLite database located at `submodules/lds-scriptures/s
 
 - **[Render](https://render.com/)** - Cloud platform for hosting web services and static sites
 - **[Git](https://git-scm.com/)** - Distributed version control system
-
-### Styling
-
-The application uses a custom Tailwind CSS theme:
-
-- **Background**: `#0d1117`
-- **Surface**: `#161b22`
-- **Border**: `#30363d`
-- **Text**: `#c9d1d9`
-- **Accent**: `#58a6ff`
-
 
 
 ## Contributing
