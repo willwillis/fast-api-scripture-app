@@ -127,11 +127,11 @@ export const ScriptureReader: React.FC = () => {
       {/* Header */}
       <header className="border-b border-cursor-border bg-cursor-surface/50">
         <div className="max-w-6xl mx-auto px-4 py-3">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <h1 className="text-lg font-semibold text-cursor-accent">
               &gt; fast-scriptures
             </h1>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <button
                 onClick={() => {
                   setViewMode('navigation');
@@ -255,14 +255,14 @@ export const ScriptureReader: React.FC = () => {
             {/* Search Results */}
             {searchResults && searchResults.scriptures.length > 0 && (
               <div className="mb-8">
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
                   <h2 className="text-sm text-cursor-text-muted">
                     <span className="text-cursor-accent">[ </span> SEARCH RESULTS: {searchResults.total} FOUND
                     <span className="text-cursor-accent"> ]</span>
                   </h2>
                   
                   {/* Volume Filter Controls */}
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     {volumeCounts.map(({ volume, count }) => (
                       <button
                         key={volume}
