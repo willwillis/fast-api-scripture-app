@@ -7,6 +7,7 @@ import type { Scripture, Volume, Book, Chapter } from '../types/scripture';
 export const ScriptureReader: React.FC = () => {
   const {
     searchResults,
+    volumeCounts,
     loading,
     error,
     searchScriptures,
@@ -17,6 +18,7 @@ export const ScriptureReader: React.FC = () => {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [currentScripture, setCurrentScripture] = useState<Scripture | null>(null);
+  const [selectedVolumeId, setSelectedVolumeId] = useState<number | null>(null);
   const [selectedChapter, setSelectedChapter] = useState<{
     volume: Volume;
     book: Book;
@@ -25,6 +27,18 @@ export const ScriptureReader: React.FC = () => {
   const [viewMode, setViewMode] = useState<'search' | 'navigation' | 'random'>('navigation');
 
   // No useEffect - let READ mode be the default
+
+  // Helper function to get volume ID from volume short title
+  const getVolumeId = (volumeShortTitle: string): number => {
+    const volumeMap: { [key: string]: number } = {
+      'OT': 1,  // Old Testament
+      'NT': 2,  // New Testament
+      'BoM': 3, // Book of Mormon
+      'D&C': 4, // Doctrine and Covenants
+      'PGP': 5, // Pearl of Great Price
+    };
+    return volumeMap[volumeShortTitle] || 0;
+  };
 
   const loadRandomScripture = async () => {
     try {
@@ -43,8 +57,19 @@ export const ScriptureReader: React.FC = () => {
     e.preventDefault();
     if (searchQuery.trim()) {
       setCurrentScripture(null); // Clear any previous scripture
+      setSelectedVolumeId(null); // Clear volume filter
       await searchScriptures({ query: searchQuery.trim() });
       setViewMode('search');
+    }
+  };
+
+  const handleVolumeFilter = async (volumeId: number | null) => {
+    if (searchQuery.trim()) {
+      setSelectedVolumeId(volumeId);
+      await searchScriptures({ 
+        query: searchQuery.trim(), 
+        volumeId: volumeId || undefined 
+      });
     }
   };
 
@@ -212,10 +237,42 @@ export const ScriptureReader: React.FC = () => {
             {/* Search Results */}
             {searchResults && searchResults.scriptures.length > 0 && (
               <div className="mb-8">
-                <h2 className="text-sm text-cursor-text-muted mb-4">
-                  <span className="text-cursor-accent">[</span> SEARCH RESULTS: {searchResults.total} FOUND
-                  <span className="text-cursor-accent">]</span>
-                </h2>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-sm text-cursor-text-muted">
+                    <span className="text-cursor-accent">[</span> SEARCH RESULTS: {searchResults.total} FOUND
+                    <span className="text-cursor-accent">]</span>
+                  </h2>
+                  
+                  {/* Volume Filter Controls */}
+                  <div className="flex items-center gap-2">
+                    {volumeCounts.map(({ volume, count }) => (
+                      <button
+                        key={volume}
+                        onClick={() => handleVolumeFilter(count > 0 ? getVolumeId(volume) : null)}
+                        disabled={count === 0}
+                        className={`px-2 py-1 text-xs rounded border transition-colors ${
+                          count === 0
+                            ? 'opacity-50 cursor-not-allowed'
+                            : selectedVolumeId === getVolumeId(volume)
+                            ? 'bg-cursor-accent/20 text-cursor-accent border-cursor-accent/30'
+                            : 'bg-cursor-surface/20 text-cursor-text border-cursor-border hover:bg-cursor-surface/30'
+                        }`}
+                      >
+                        [{volume}: {count}]
+                      </button>
+                    ))}
+                    
+                    {/* Reset Filter Button */}
+                    {selectedVolumeId && (
+                      <button
+                        onClick={() => handleVolumeFilter(null)}
+                        className="px-2 py-1 text-xs rounded border transition-colors bg-cursor-surface/20 text-cursor-text border-cursor-border hover:bg-cursor-surface/30"
+                      >
+                        [SHOW ALL]
+                      </button>
+                    )}
+                  </div>
+                </div>
                 <div className="space-y-2">
                   {searchResults.scriptures.map((scripture) => (
                     <div

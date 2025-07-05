@@ -15,6 +15,7 @@ export const useScriptures = () => {
   const [chapters, setChapters] = useState<Chapter[]>([]);
   const [verses, setVerses] = useState<Verse[]>([]);
   const [searchResults, setSearchResults] = useState<ScriptureResponse | null>(null);
+  const [volumeCounts, setVolumeCounts] = useState<Array<{volume: string, count: number}>>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -76,6 +77,10 @@ export const useScriptures = () => {
     try {
       const data = await scriptureApi.searchScriptures(search);
       setSearchResults(data);
+      
+      // Get volume counts for the search
+      const counts = await scriptureApi.getSearchVolumeCounts(search.query);
+      setVolumeCounts(counts);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to search scriptures');
     } finally {
@@ -121,6 +126,7 @@ export const useScriptures = () => {
 
   const clearSearchResults = useCallback(() => {
     setSearchResults(null);
+    setVolumeCounts([]);
   }, []);
 
   return {
@@ -130,6 +136,7 @@ export const useScriptures = () => {
     chapters,
     verses,
     searchResults,
+    volumeCounts,
     loading,
     error,
     

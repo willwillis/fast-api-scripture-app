@@ -84,25 +84,33 @@ class DatabaseService:
                 ))
             return verses
     
-    def search_scriptures(self, query: str, limit: int = 50, offset: int = 0) -> Tuple[List[Scripture], int]:
-        """Search scriptures by text content"""
+    def search_scriptures(self, query: str, limit: int = 50, offset: int = 0, volume_id: Optional[int] = None) -> Tuple[List[Scripture], int]:
+        """Search scriptures by text content with optional volume filter"""
         with self.get_connection() as conn:
             cursor = conn.cursor()
             
+            # Build WHERE clause
+            where_clause = "WHERE (scripture_text LIKE ? OR verse_title LIKE ?)"
+            params = [f"%{query}%", f"%{query}%"]
+            
+            if volume_id is not None:
+                where_clause += " AND volume_id = ?"
+                params.append(str(volume_id))
+            
             # Count total results
-            cursor.execute("""
+            cursor.execute(f"""
                 SELECT COUNT(*) FROM scriptures 
-                WHERE scripture_text LIKE ? OR verse_title LIKE ?
-            """, (f"%{query}%", f"%{query}%"))
+                {where_clause}
+            """, params)
             total = cursor.fetchone()[0]
             
             # Get paginated results
-            cursor.execute("""
+            cursor.execute(f"""
                 SELECT * FROM scriptures 
-                WHERE scripture_text LIKE ? OR verse_title LIKE ?
+                {where_clause}
                 ORDER BY volume_id, book_id, chapter_id, verse_id
                 LIMIT ? OFFSET ?
-            """, (f"%{query}%", f"%{query}%", limit, offset))
+            """, params + [limit, offset])
             rows = cursor.fetchall()
             
             scriptures = []
@@ -130,6 +138,22 @@ class DatabaseService:
                 ))
             
             return scriptures, total
+    
+    def get_search_counts_by_volume(self, query: str) -> List[Tuple[str, int]]:
+        """Get search result counts grouped by volume"""
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            
+            cursor.execute("""
+                SELECT v.volume_short_title, COUNT(*) as count
+                FROM scriptures s
+                JOIN volumes v ON s.volume_id = v.id
+                WHERE s.scripture_text LIKE ? OR s.verse_title LIKE ?
+                GROUP BY v.id, v.volume_short_title
+                ORDER BY v.id
+            """, (f"%{query}%", f"%{query}%"))
+            
+            return cursor.fetchall()
     
     def get_scripture_by_reference(self, book_title: str, chapter: int, verse: Optional[int] = None) -> List[Scripture]:
         """Get scripture by book, chapter, and optional verse"""

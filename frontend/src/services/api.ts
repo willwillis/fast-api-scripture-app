@@ -50,7 +50,16 @@ export const scriptureApi = {
       limit: search.limit?.toString() || '50',
       offset: search.offset?.toString() || '0',
     });
+    if (search.volumeId) {
+      params.append('volume_id', search.volumeId.toString());
+    }
     const response = await api.get(`/api/scriptures/search?${params}`);
+    return response.data;
+  },
+
+  // Get search volume counts
+  getSearchVolumeCounts: async (query: string): Promise<Array<{volume: string, count: number}>> => {
+    const response = await api.get(`/api/scriptures/search/volumes?q=${encodeURIComponent(query)}`);
     return response.data;
   },
 

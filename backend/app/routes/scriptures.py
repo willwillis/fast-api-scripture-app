@@ -42,17 +42,27 @@ async def get_verses_by_chapter(chapter_id: int):
 async def search_scriptures(
     q: str = Query(..., description="Search query"),
     limit: int = Query(50, ge=1, le=100, description="Number of results to return"),
-    offset: int = Query(0, ge=0, description="Number of results to skip")
+    offset: int = Query(0, ge=0, description="Number of results to skip"),
+    volume_id: Optional[int] = Query(None, description="Filter by volume ID")
 ):
-    """Search scriptures by text content"""
+    """Search scriptures by text content with optional volume filter"""
     try:
-        scriptures, total = db_service.search_scriptures(q, limit, offset)
+        scriptures, total = db_service.search_scriptures(q, limit, offset, volume_id)
         return ScriptureResponse(
             scriptures=scriptures,
             total=total,
             limit=limit,
             offset=offset
         )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+
+@router.get("/search/volumes", response_model=List[dict])
+async def get_search_volume_counts(q: str = Query(..., description="Search query")):
+    """Get search result counts grouped by volume"""
+    try:
+        volume_counts = db_service.get_search_counts_by_volume(q)
+        return [{"volume": volume, "count": count} for volume, count in volume_counts]
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 

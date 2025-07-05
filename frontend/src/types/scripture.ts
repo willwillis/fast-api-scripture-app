@@ -63,4 +63,5 @@ export interface ScriptureSearch {
   query: string;
   limit?: number;
   offset?: number;
+  volumeId?: number;
 } 
