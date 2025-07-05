@@ -22,6 +22,7 @@ export const Navigation: React.FC<NavigationProps> = ({ onChapterSelect }) => {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [expandedVolumes, setExpandedVolumes] = useState<Set<number>>(new Set());
   const [expandedBooks, setExpandedBooks] = useState<Set<number>>(new Set());
+  const [showLDS, setShowLDS] = useState(false);
 
   useEffect(() => {
     fetchVolumes();
@@ -81,9 +82,26 @@ export const Navigation: React.FC<NavigationProps> = ({ onChapterSelect }) => {
 
   return (
     <div className="bg-cursor-surface/30 border border-cursor-border rounded-lg p-4">
-      <h2 className="text-sm text-cursor-accent font-semibold mb-4">
-        VOLUMES
-      </h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-sm text-cursor-accent font-semibold">
+          VOLUMES
+        </h2>
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-cursor-text-muted">LDS</span>
+          <button
+            onClick={() => setShowLDS(!showLDS)}
+            className={`w-8 h-4 rounded-full transition-colors ${
+              showLDS
+                ? 'bg-cursor-accent/60'
+                : 'bg-cursor-surface/40'
+            }`}
+          >
+            <div className={`w-3 h-3 rounded-full bg-white transition-transform ${
+              showLDS ? 'translate-x-4' : 'translate-x-0.5'
+            }`} />
+          </button>
+        </div>
+      </div>
 
       {loading && (
         <div className="text-center py-4">
@@ -95,7 +113,13 @@ export const Navigation: React.FC<NavigationProps> = ({ onChapterSelect }) => {
       )}
 
       <div className="space-y-2">
-        {volumes.map((volume) => (
+        {volumes
+          .filter((volume) => {
+            // Show all volumes if LDS is enabled, otherwise only show OT and NT
+            if (showLDS) return true;
+            return volume.volume_short_title === 'OT' || volume.volume_short_title === 'NT';
+          })
+          .map((volume) => (
           <div key={volume.id} className="space-y-1">
             {/* Volume */}
             <button
