@@ -27,6 +27,7 @@ export const ScriptureReader: React.FC = () => {
     chapter: Chapter;
   } | null>(null);
   const [viewMode, setViewMode] = useState<'search' | 'navigation' | 'random'>('navigation');
+  const [randomLoading, setRandomLoading] = useState(false);
   
   // Ref for auto-scrolling to ChapterReader
   const chapterReaderRef = useRef<HTMLDivElement>(null);
@@ -75,6 +76,7 @@ export const ScriptureReader: React.FC = () => {
   };
 
   const loadRandomScripture = async () => {
+    setRandomLoading(true);
     try {
       const scripture = await getRandomScripture();
       if (scripture) {
@@ -84,6 +86,8 @@ export const ScriptureReader: React.FC = () => {
       }
     } catch (error) {
       console.error('Failed to load random scripture:', error);
+    } finally {
+      setRandomLoading(false);
     }
   };
 
@@ -183,14 +187,14 @@ export const ScriptureReader: React.FC = () => {
               </button>
               <button
                 onClick={loadRandomScripture}
-                disabled={loading}
+                disabled={randomLoading}
                 className={`px-3 py-1 text-xs rounded border transition-colors disabled:opacity-50 ${
                   viewMode === 'random'
                     ? 'bg-cursor-accent/20 text-cursor-accent border-cursor-accent/30'
                     : 'bg-cursor-surface/20 text-cursor-text border-cursor-border hover:bg-cursor-surface/30'
                 }`}
               >
-                {loading ? '[LOADING...]' : 'RANDOM'}
+                {randomLoading ? 'RAND🔃M' : 'RANDOM'}
               </button>
               <a
                 href="https://scriptures-fast-api.onrender.com/docs#/scriptures"
