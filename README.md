@@ -1,16 +1,6 @@
 # Fast Scriptures
 
-A modern, mobile-first scripture reading application. Built with FastAPI backend and React frontend.
-
-## Features
-
-- **Dark Theme**: Dark background with soft muted highlights
-- **Mobile-First**: Responsive design optimized for mobile and desktop
-- **Hacker Aesthetic**: Monospace fonts and minimalist UI
-- **Full-Text Search**: Search across all LDS scriptures
-- **Random Scripture**: Get random scripture verses
-- **RESTful API**: FastAPI backend with comprehensive endpoints
-- **TypeScript**: Full type safety across the stack
+A modern, mobile-first scripture reading (and searching) application built with modern web technologies.
 
 ## Project Structure
 
@@ -39,7 +29,6 @@ fast-scriptures/
 │   └── README.md
 ├── submodules/              # LDS Scriptures database
 │   └── lds-scriptures/
-├── docker-compose.yml
 └── README.md
 ```
 
@@ -105,24 +94,28 @@ The application will be available at `http://localhost:5173`
 
 The application uses the SQLite database located at `submodules/lds-scriptures/sqlite/lds-scriptures-sqlite.db`. This contains the complete LDS scriptures in a structured format.
 
-## Development
+## Tech Stack
 
-### Backend Development
+### Backend Technologies
 
-The backend is built with:
-- **FastAPI** - Modern Python web framework
-- **SQLite** - Lightweight database
-- **Pydantic** - Data validation
-- **Uvicorn** - ASGI server
+- **[FastAPI](https://fastapi.tiangolo.com/)** - Modern, fast web framework for building APIs with Python
+- **[SQLite](https://www.sqlite.org/)** - Lightweight, serverless database engine
+- **[Pydantic](https://pydantic.dev/)** - Data validation and settings management using Python type annotations
+- **[Uvicorn](https://www.uvicorn.org/)** - Lightning-fast ASGI server implementation
+- **[uv](https://docs.astral.sh/uv/)** - Fast Python package installer and resolver
 
-### Frontend Development
+### Frontend Technologies
 
-The frontend is built with:
-- **React 18** - UI framework
-- **TypeScript** - Type safety
-- **Vite** - Build tool and dev server
-- **Tailwind CSS** - Styling with custom theme
-- **Axios** - HTTP client
+- **[React 18](https://react.dev/)** - JavaScript library for building user interfaces
+- **[TypeScript](https://www.typescriptlang.org/)** - Typed superset of JavaScript for better developer experience
+- **[Vite](https://vitejs.dev/)** - Next generation frontend tooling for fast development and building
+- **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework for rapid UI development
+- **[Axios](https://axios-http.com/)** - Promise-based HTTP client for the browser and Node.js
+
+### Development & Deployment
+
+- **[Render](https://render.com/)** - Cloud platform for hosting web services and static sites
+- **[Git](https://git-scm.com/)** - Distributed version control system
 
 ### Styling
 
@@ -134,15 +127,7 @@ The application uses a custom Tailwind CSS theme:
 - **Text**: `#c9d1d9`
 - **Accent**: `#58a6ff`
 
-## Docker Development
 
-You can also run the entire application using Docker Compose:
-
-```bash
-docker-compose up --build
-```
-
-This will start both the backend and frontend services.
 
 ## Contributing
 
