@@ -19,3 +19,4 @@ suggest a folder structure and naming convention to accomplish this.
 # Further Direction
 - I'll be using uv, not pip for this project
 - Addd the appropriate patterns to my .gitignore for React and Python projects
+- I did some [Copilot](https://copilot.microsoft.com/shares/pages/znF1zmBzX5tBsby1ULrip) research on git submodules before starting the cursor part of this project
