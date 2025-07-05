@@ -59,9 +59,9 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ volume, book, chap
   }
 
   return (
-    <div className="bg-cursor-surface/30 border border-cursor-border rounded-lg p-6">
+    <div className="p-4">
       {/* Header */}
-      <div className="mb-6">
+      <div className="mb-4">
         <h1 className="text-xl text-cursor-accent font-semibold mb-2">
           {book.book_title} {chapter.chapter_number}
         </h1>
@@ -84,7 +84,7 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ volume, book, chap
 
       {/* Verses */}
       {!loading && verses.length > 0 && (
-        <div className="space-y-3">
+        <div className="space-y-2">
           {verses.map((verse) => (
             <div
               key={verse.id}
@@ -132,7 +132,7 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ volume, book, chap
       </div> */}
 
       {/* Navigation Buttons */}
-      <div className="mt-6 pt-4 border-t border-cursor-border/30">
+      <div className="mt-4 pt-3 border-t border-cursor-border/30">
         <div className="flex justify-between items-center">
           <button
             onClick={handlePrevious}
