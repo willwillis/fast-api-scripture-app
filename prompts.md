@@ -37,3 +37,4 @@ suggest a folder structure and naming convention to accomplish this.
 - If I choose Render, can I still use sqlite, or will I need to migrate to postgres? I would like to stay with sqlite if possible
 - If I'm going to use Render, why not use it exclusively for front and back end. As my data will never change, and has no requirements to persist, it's fine if storage is ephemeral
 - can you save this deployment stragegy into deployment.md in the root of the project?
+- The front-end build failed with the following errors <...>

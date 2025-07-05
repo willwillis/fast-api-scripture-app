@@ -1,4 +1,3 @@
-import React from 'react';
 import { ScriptureReader } from './components/ScriptureReader';
 import './index.css';
 
