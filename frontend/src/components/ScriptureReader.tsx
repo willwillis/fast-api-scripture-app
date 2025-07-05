@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useScriptures } from '../hooks/useScriptures';
 import { Navigation } from './Navigation';
 import { ChapterReader } from './ChapterReader';
@@ -25,8 +25,22 @@ export const ScriptureReader: React.FC = () => {
     chapter: Chapter;
   } | null>(null);
   const [viewMode, setViewMode] = useState<'search' | 'navigation' | 'random'>('navigation');
+  
+  // Ref for auto-scrolling to ChapterReader
+  const chapterReaderRef = useRef<HTMLDivElement>(null);
 
-  // No useEffect - let READ mode be the default
+  // Auto-scroll to ChapterReader when a chapter is selected
+  useEffect(() => {
+    if (selectedChapter && chapterReaderRef.current) {
+      // Small delay to ensure the component has rendered
+      setTimeout(() => {
+        chapterReaderRef.current?.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+      }, 100);
+    }
+  }, [selectedChapter]);
 
   // Helper function to get volume ID from volume short title
   const getVolumeId = (volumeShortTitle: string): number => {
@@ -228,7 +242,7 @@ export const ScriptureReader: React.FC = () => {
             </div>
 
             {/* Chapter Reader */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2" ref={chapterReaderRef}>
               {selectedChapter ? (
                 <ChapterReader
                   volume={selectedChapter.volume}
