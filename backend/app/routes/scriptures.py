@@ -72,11 +72,8 @@ async def get_scripture_by_reference(
 async def get_random_scripture():
     """Get a random scripture verse"""
     try:
-        # This is a simple implementation - you might want to improve it
-        scriptures, _ = db_service.search_scriptures("", 1, 0)
-        if scriptures:
-            return scriptures[0]
-        else:
-            raise HTTPException(status_code=404, detail="No scriptures found")
+        return db_service.get_random_scripture()
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}") 

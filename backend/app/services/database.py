@@ -175,4 +175,55 @@ class DatabaseService:
                     verse_short_title=row[18]
                 ))
             
-            return scriptures 
+            return scriptures
+    
+    def get_random_scripture(self) -> Scripture:
+        """Get a truly random scripture verse"""
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            
+            # Get total count of scriptures
+            cursor.execute("SELECT COUNT(*) FROM scriptures")
+            result = cursor.fetchone()
+            total_count = result[0] if result else 0
+            
+            if total_count == 0:
+                raise ValueError("No scriptures found in database")
+            
+            # Generate random offset
+            import random
+            random_offset = random.randint(0, int(total_count) - 1)
+            
+            # Get random scripture
+            cursor.execute("""
+                SELECT * FROM scriptures 
+                ORDER BY verse_id
+                LIMIT 1 OFFSET ?
+            """, (random_offset,))
+            
+            row = cursor.fetchone()
+            
+            if not row:
+                raise ValueError("Failed to fetch random scripture")
+            
+            return Scripture(
+                volume_id=row[0],
+                book_id=row[1],
+                chapter_id=row[2],
+                verse_id=row[3],
+                volume_title=row[4],
+                book_title=row[5],
+                volume_long_title=row[6],
+                book_long_title=row[7],
+                volume_subtitle=row[8],
+                book_subtitle=row[9],
+                volume_short_title=row[10],
+                book_short_title=row[11],
+                volume_lds_url=row[12],
+                book_lds_url=row[13],
+                chapter_number=row[14],
+                verse_number=row[15],
+                scripture_text=row[16],
+                verse_title=row[17],
+                verse_short_title=row[18]
+            ) 
