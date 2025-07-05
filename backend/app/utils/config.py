@@ -46,4 +46,6 @@ CORS_ORIGINS = [
     "http://127.0.0.1:3000",
     # Add your Cloudflare Pages domain here
     "https://fast-scriptures-frontend.pages.dev",
+    # Add your Render frontend domain here
+    "https://scriptures-frontend.onrender.com",
 ] 
