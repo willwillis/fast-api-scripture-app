@@ -24,10 +24,7 @@ export const ScriptureReader: React.FC = () => {
   } | null>(null);
   const [viewMode, setViewMode] = useState<'search' | 'navigation' | 'random'>('navigation');
 
-  useEffect(() => {
-    // Load a random scripture on component mount
-    loadRandomScripture();
-  }, []);
+  // No useEffect - let READ mode be the default
 
   const loadRandomScripture = async () => {
     try {
