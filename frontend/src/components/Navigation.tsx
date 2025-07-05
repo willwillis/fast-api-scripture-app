@@ -82,8 +82,7 @@ export const Navigation: React.FC<NavigationProps> = ({ onChapterSelect }) => {
   return (
     <div className="bg-cursor-surface/30 border border-cursor-border rounded-lg p-4">
       <h2 className="text-sm text-cursor-accent font-semibold mb-4">
-        <span className="text-cursor-accent">[</span> NAVIGATION
-        <span className="text-cursor-accent">]</span>
+        VOLUMES
       </h2>
 
       {loading && (

@@ -239,7 +239,7 @@ export const ScriptureReader: React.FC = () => {
                 <div className="bg-cursor-surface/30 border border-cursor-border rounded-lg p-6">
                   <div className="text-center py-8">
                     <p className="text-cursor-text-muted text-sm">
-                      <span className="text-cursor-accent">[</span> SELECT A CHAPTER TO READ
+                      <span className="text-cursor-accent">[</span>SELECT A CHAPTER TO READ
                       <span className="text-cursor-accent">]</span>
                     </p>
                   </div>
