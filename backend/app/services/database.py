@@ -131,7 +131,7 @@ class DatabaseService:
             
             return scriptures, total
     
-    def get_scripture_by_reference(self, book_title: str, chapter: int, verse: int = None) -> List[Scripture]:
+    def get_scripture_by_reference(self, book_title: str, chapter: int, verse: Optional[int] = None) -> List[Scripture]:
         """Get scripture by book, chapter, and optional verse"""
         with self.get_connection() as conn:
             cursor = conn.cursor()
