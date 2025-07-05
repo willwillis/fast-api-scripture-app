@@ -38,3 +38,6 @@ suggest a folder structure and naming convention to accomplish this.
 - If I'm going to use Render, why not use it exclusively for front and back end. As my data will never change, and has no requirements to persist, it's fine if storage is ephemeral
 - can you save this deployment stragegy into deployment.md in the root of the project?
 - The front-end build failed with the following errors <...>
+
+## More bugs
+- If I use the Random feature, and view a random scripture, then use search feature, I see the search results, then below it is the random scripture. (This happens if there are search results or not, the random scripture is displayed.) I think when the Search button is clicked, the one that does the searching, the previous main contents should be blanked out

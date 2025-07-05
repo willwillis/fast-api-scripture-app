@@ -1,10 +1,10 @@
 # Fast Scriptures
 
-A modern, mobile-first scripture reading application with a Cursor-like dark theme. Built with FastAPI backend and React frontend.
+A modern, mobile-first scripture reading application. Built with FastAPI backend and React frontend.
 
 ## Features
 
-- **Dark Theme**: Cursor-like dark background with soft muted highlights
+- **Dark Theme**: Dark background with soft muted highlights
 - **Mobile-First**: Responsive design optimized for mobile and desktop
 - **Hacker Aesthetic**: Monospace fonts and minimalist UI
 - **Full-Text Search**: Search across all LDS scriptures
@@ -126,13 +126,13 @@ The frontend is built with:
 
 ### Styling
 
-The application uses a custom Tailwind CSS theme that mimics the Cursor editor:
+The application uses a custom Tailwind CSS theme:
 
-- **Background**: `#0d1117` (cursor-bg)
-- **Surface**: `#161b22` (cursor-surface)
-- **Border**: `#30363d` (cursor-border)
-- **Text**: `#c9d1d9` (cursor-text)
-- **Accent**: `#58a6ff` (cursor-accent)
+- **Background**: `#0d1117`
+- **Surface**: `#161b22`
+- **Border**: `#30363d`
+- **Text**: `#c9d1d9`
+- **Accent**: `#58a6ff`
 
 ## Docker Development
 
