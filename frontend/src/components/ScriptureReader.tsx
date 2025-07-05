@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useScriptures } from '../hooks/useScriptures';
 import { Navigation } from './Navigation';
 import { ChapterReader } from './ChapterReader';
