@@ -29,3 +29,12 @@ suggest a folder structure and naming convention to accomplish this.
 - There is some inconsistency with the colors of the [READ] [SEARCH] [RANDOM] buttons. Can you fix it so that the page or feature that is currently in use is the only button highlighted?
 - When I click Search, it turns blue, then when I click random a new random scripture appears, however [Search] is still "active"
 - when search is clicked I still see the random scripture, can you blank out the previous content if search is clicked?
+
+## Deployment
+- where is a good place to deploy the front and back end? Would cloudflare be suitable? Are python service workers still in beta?
+- you said both railway and cloudflare pages have generous free tiers. I believe that's true for cloudflare, however I only see a $5 hobby plan for railway. https://railway.com/pricing
+- Whichever deployment option we choose, it'll need to have integration to github actions
+- If I choose Render, can I still use sqlite, or will I need to migrate to postgres? I would like to stay with sqlite if possible
+- If I'm going to use Render, why not use it exclusively for front and back end. As my data will never change, and has no requirements to persist, it's fine if storage is ephemeral
+- can you save this deployment stragegy into deployment.md in the root of the project?
+- The front-end build failed with the following errors <...>

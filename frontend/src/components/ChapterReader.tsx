@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useScriptures } from '../hooks/useScriptures';
-import type { Volume, Book, Chapter, Verse } from '../types/scripture';
+import type { Volume, Book, Chapter } from '../types/scripture';
 
 interface ChapterReaderProps {
   volume: Volume;

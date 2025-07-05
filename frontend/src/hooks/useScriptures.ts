@@ -1,11 +1,10 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { scriptureApi } from '../services/api';
 import type { 
   Volume, 
   Book, 
   Chapter, 
   Verse, 
-  Scripture, 
   ScriptureResponse, 
   ScriptureSearch 
 } from '../types/scripture';
