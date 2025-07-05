@@ -121,11 +121,27 @@ VITE_API_URL=https://your-backend-service.onrender.com
    - `RENDER_FRONTEND_SERVICE_ID`
    - `VITE_API_URL`
 
-### **Step 5: Test Deployment**
+### **Step 5: Configure CORS**
+
+1. **Get your frontend domain** from Render Dashboard (e.g., `https://your-app-name.onrender.com`)
+2. **Update CORS configuration** in `backend/app/utils/config.py`:
+   ```python
+   CORS_ORIGINS = [
+       "http://localhost:5173",  # Vite dev server
+       "http://localhost:3000",  # Alternative dev port
+       "http://127.0.0.1:5173",
+       "http://127.0.0.1:3000",
+       "https://your-frontend-domain.onrender.com",  # Add your frontend domain here
+   ]
+   ```
+3. **Commit and push** the changes to trigger a new backend deployment
+
+### **Step 6: Test Deployment**
 
 1. Push changes to `main` branch
 2. Check GitHub Actions tab for deployment status
 3. Verify both services are running on Render
+4. Test the frontend to ensure it can call the backend API
 
 ## 🔄 Deployment Flow
 
@@ -172,6 +188,12 @@ VITE_API_URL=https://your-backend-service.onrender.com
    - Check CORS configuration in backend
    - Ensure backend service is running
 
+4. **CORS errors**:
+   - Verify frontend domain is in `CORS_ORIGINS` list
+   - Check browser console for specific CORS error messages
+   - Ensure backend has been redeployed after CORS changes
+   - Test API endpoint directly to confirm it's working
+
 ### **Logs**:
 - Backend logs: Render Dashboard → Service → Logs
 - Frontend build logs: GitHub Actions → Workflow runs
@@ -198,6 +220,17 @@ VITE_API_URL=https://your-backend-service.onrender.com
 
 ### **CORS Configuration**:
 - Backend configured for frontend domain
+- **Important**: After deploying your frontend, update `backend/app/utils/config.py` to add your frontend domain to `CORS_ORIGINS`:
+  ```python
+  CORS_ORIGINS = [
+      "http://localhost:5173",  # Vite dev server
+      "http://localhost:3000",  # Alternative dev port
+      "http://127.0.0.1:5173",
+      "http://127.0.0.1:3000",
+      "https://your-frontend-domain.onrender.com",  # Add your frontend domain here
+  ]
+  ```
+- Commit and push the changes to trigger a new backend deployment
 - Add production domains to CORS origins
 - Restrict to specific domains in production
 
