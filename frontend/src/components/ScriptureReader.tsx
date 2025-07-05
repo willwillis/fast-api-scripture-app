@@ -22,7 +22,7 @@ export const ScriptureReader: React.FC = () => {
     book: Book;
     chapter: Chapter;
   } | null>(null);
-  const [viewMode, setViewMode] = useState<'search' | 'navigation'>('navigation');
+  const [viewMode, setViewMode] = useState<'search' | 'navigation' | 'random'>('navigation');
 
   useEffect(() => {
     // Load a random scripture on component mount
@@ -30,10 +30,15 @@ export const ScriptureReader: React.FC = () => {
   }, []);
 
   const loadRandomScripture = async () => {
-    const scripture = await getRandomScripture();
-    if (scripture) {
-      setCurrentScripture(scripture);
-      clearSearchResults();
+    try {
+      const scripture = await getRandomScripture();
+      if (scripture) {
+        setCurrentScripture(scripture);
+        clearSearchResults();
+        setViewMode('random'); // Set to random mode to show the random scripture
+      }
+    } catch (error) {
+      console.error('Failed to load random scripture:', error);
     }
   };
 
@@ -87,7 +92,11 @@ export const ScriptureReader: React.FC = () => {
             </h1>
             <div className="flex items-center gap-2">
               <button
-                onClick={() => setViewMode('navigation')}
+                onClick={() => {
+                  setViewMode('navigation');
+                  setCurrentScripture(null);
+                  clearSearchResults();
+                }}
                 className={`px-3 py-1 text-xs rounded border transition-colors ${
                   viewMode === 'navigation'
                     ? 'bg-cursor-accent/20 text-cursor-accent border-cursor-accent/30'
@@ -97,7 +106,11 @@ export const ScriptureReader: React.FC = () => {
                 [READ]
               </button>
               <button
-                onClick={() => setViewMode('search')}
+                onClick={() => {
+                  setViewMode('search');
+                  setCurrentScripture(null);
+                  clearSearchResults();
+                }}
                 className={`px-3 py-1 text-xs rounded border transition-colors ${
                   viewMode === 'search'
                     ? 'bg-cursor-accent/20 text-cursor-accent border-cursor-accent/30'
@@ -109,7 +122,11 @@ export const ScriptureReader: React.FC = () => {
               <button
                 onClick={loadRandomScripture}
                 disabled={loading}
-                className="px-3 py-1 bg-cursor-accent/20 hover:bg-cursor-accent/30 text-cursor-accent text-xs rounded border border-cursor-accent/30 transition-colors disabled:opacity-50"
+                className={`px-3 py-1 text-xs rounded border transition-colors disabled:opacity-50 ${
+                  viewMode === 'random'
+                    ? 'bg-cursor-accent/20 text-cursor-accent border-cursor-accent/30'
+                    : 'bg-cursor-surface/20 text-cursor-text border-cursor-border hover:bg-cursor-surface/30'
+                }`}
               >
                 {loading ? '[LOADING...]' : '[RANDOM]'}
               </button>
@@ -182,7 +199,7 @@ export const ScriptureReader: React.FC = () => {
         )}
 
         {/* Search Mode */}
-        {viewMode === 'search' && (
+        {(viewMode === 'search' || viewMode === 'random') && (
           <div>
             {/* Search Results */}
             {searchResults && searchResults.scriptures.length > 0 && (
