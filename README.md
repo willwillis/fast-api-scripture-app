@@ -88,10 +88,20 @@ The application will be available at `http://localhost:5173`
 - `GET /api/scriptures/reference/{book_title}/{chapter}` - Get scripture by reference
 - `GET /api/scriptures/random` - Get random scripture
 
+
 ### Utility Endpoints
 
 - `GET /` - API information
 - `GET /health` - Health check
+
+### API Example - get a random scripture
+
+```
+curl -s -X 'GET' 'https://scriptures-fast-api.onrender.com/api/scriptures/random' -H 'accept: application/json' | jq -r '"\(.verse_title)\n\(.scripture_text)"'
+
+Matthew 26:56
+But all this was done, that the scriptures of the prophets might be fulfilled. Then all the disciples forsook him, and fled.
+```
 
 ## Database
 
