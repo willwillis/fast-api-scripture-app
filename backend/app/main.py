@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .routes import scriptures
 from .utils.config import API_TITLE, API_DESCRIPTION, API_VERSION, CORS_ORIGINS
+from .services.database import DatabaseService
 
 app = FastAPI(
     title=API_TITLE,
@@ -33,8 +34,27 @@ async def root():
 
 @app.get("/health")
 async def health_check():
-    """Health check endpoint"""
-    return {"status": "healthy"}
+    """Health check endpoint with database warm-up"""
+    try:
+        # Warm up database connection and test a simple query
+        db_service = DatabaseService()
+        volumes = db_service.get_volumes()
+        
+        return {
+            "status": "healthy",
+            "warmed_up": True,
+            "database": "connected",
+            "volumes_count": len(volumes),
+            "timestamp": "2025-01-05T00:00:00Z"
+        }
+    except Exception as e:
+        return {
+            "status": "unhealthy",
+            "warmed_up": False,
+            "database": "error",
+            "error": str(e),
+            "timestamp": "2025-01-05T00:00:00Z"
+        }
 
 if __name__ == "__main__":
     import uvicorn
