@@ -1,0 +1,198 @@
+name: Synthetic Monitoring
+
+on:
+  schedule:
+    # Run every 15 minutes to keep service warm
+    - cron: '*/15 * * * *'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  warm-up-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10 # Allow up to 10 minutes for the job
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up environment
+      run: |
+        # Set your API URL here
+        echo "API_URL=https://scriptures-fast-api.onrender.com" >> $GITHUB_ENV
+        
+        # Grafana Cloud Metrics Endpoint (disabled for now)
+        echo "GRAFANA_METRICS_ENDPOINT=" >> $GITHUB_ENV
+        
+    - name: Warm up service
+      run: |
+        echo "🔄 Starting service warm-up..."
+        
+        # Initial health check to trigger cold start
+        echo "📡 Making initial health check request..."
+        curl -s -w "Initial Response Time: %{time_total}s\n" \
+          -o /dev/null \
+          "$API_URL/health" || echo "Initial request failed (expected for cold start)"
+        
+        # Wait 5 minutes for service to fully warm up
+        echo "⏰ Waiting 5 minutes for service to warm up..."
+        sleep 300
+        
+        echo "✅ Warm-up period complete"
+        
+    - name: Test core endpoints
+      run: |
+        echo "🧪 Testing core API endpoints..."
+        
+        # Test health endpoint
+        echo "📊 Testing health endpoint..."
+        HEALTH_RESPONSE=$(curl -s -w "\nResponse Time: %{time_total}s\n" \
+          "$API_URL/health")
+        echo "$HEALTH_RESPONSE"
+        
+        # Test volumes endpoint
+        echo "📚 Testing volumes endpoint..."
+        VOLUMES_RESPONSE=$(curl -s -w "\nResponse Time: %{time_total}s\n" \
+          "$API_URL/api/scriptures/volumes")
+        echo "$VOLUMES_RESPONSE"
+        
+        # Test random scripture endpoint
+        echo "🎲 Testing random scripture endpoint..."
+        RANDOM_RESPONSE=$(curl -s -w "\nResponse Time: %{time_total}s\n" \
+          "$API_URL/api/scriptures/random")
+        echo "$RANDOM_RESPONSE"
+        
+        # Test search endpoint
+        echo "🔍 Testing search endpoint..."
+        SEARCH_RESPONSE=$(curl -s -w "\nResponse Time: %{time_total}s\n" \
+          "$API_URL/api/scriptures/search?q=love&limit=5")
+        echo "$SEARCH_RESPONSE"
+        
+    - name: Validate responses
+      run: |
+        echo "✅ Validating API responses..."
+        
+        # Check if health endpoint returns healthy status
+        HEALTH_STATUS=$(curl -s "$API_URL/health" | jq -r '.status')
+        if [ "$HEALTH_STATUS" = "healthy" ]; then
+          echo "✅ Health check passed"
+        else
+          echo "❌ Health check failed: $HEALTH_STATUS"
+          exit 1
+        fi
+        
+        # Check if volumes endpoint returns data
+        VOLUMES_COUNT=$(curl -s "$API_URL/api/scriptures/volumes" | jq 'length')
+        if [ "$VOLUMES_COUNT" -gt 0 ]; then
+          echo "✅ Volumes endpoint working: $VOLUMES_COUNT volumes found"
+        else
+          echo "❌ Volumes endpoint failed"
+          exit 1
+        fi
+        
+        # Check if random endpoint returns scripture
+        RANDOM_SCRIPTURE=$(curl -s "$API_URL/api/scriptures/random" | jq -r '.scripture_text')
+        if [ -n "$RANDOM_SCRIPTURE" ]; then
+          echo "✅ Random scripture endpoint working"
+        else
+          echo "❌ Random scripture endpoint failed"
+          exit 1
+        fi
+        
+    - name: Performance metrics
+      run: |
+        echo "📈 Collecting performance metrics..."
+        
+        # Measure response times
+        HEALTH_TIME=$(curl -s -w "%{time_total}" -o /dev/null "$API_URL/health")
+        VOLUMES_TIME=$(curl -s -w "%{time_total}" -o /dev/null "$API_URL/api/scriptures/volumes")
+        RANDOM_TIME=$(curl -s -w "%{time_total}" -o /dev/null "$API_URL/api/scriptures/random")
+        
+        echo "Health endpoint: ${HEALTH_TIME}s"
+        echo "Volumes endpoint: ${VOLUMES_TIME}s"
+        echo "Random endpoint: ${RANDOM_TIME}s"
+        
+        # Alert if response times are too slow
+        if (( $(echo "$HEALTH_TIME > 5" | bc -l) )); then
+          echo "⚠️ Health endpoint is slow: ${HEALTH_TIME}s"
+        fi
+        
+        if (( $(echo "$RANDOM_TIME > 10" | bc -l) )); then
+          echo "⚠️ Random endpoint is slow: ${RANDOM_TIME}s"
+        fi
+        
+    - name: Send metrics to Grafana Cloud
+      if: env.GRAFANA_METRICS_ENDPOINT != ''
+      run: |
+        echo "📊 Sending metrics to Grafana Cloud..."
+        
+        # Create metrics in JSON format for Metrics Endpoint
+        cat << EOF > metrics.json
+        {
+          "metrics": [
+            {
+              "name": "scripture_app_response_time_seconds",
+              "value": $HEALTH_TIME,
+              "labels": {"endpoint": "health", "instance": "github_actions"}
+            },
+            {
+              "name": "scripture_app_response_time_seconds", 
+              "value": $VOLUMES_TIME,
+              "labels": {"endpoint": "volumes", "instance": "github_actions"}
+            },
+            {
+              "name": "scripture_app_response_time_seconds",
+              "value": $RANDOM_TIME, 
+              "labels": {"endpoint": "random", "instance": "github_actions"}
+            },
+            {
+              "name": "scripture_app_health_status",
+              "value": 1,
+              "labels": {"instance": "github_actions"}
+            },
+            {
+              "name": "scripture_app_test_success",
+              "value": 1,
+              "labels": {"test": "health", "instance": "github_actions"}
+            },
+            {
+              "name": "scripture_app_test_success",
+              "value": 1,
+              "labels": {"test": "volumes", "instance": "github_actions"}
+            },
+            {
+              "name": "scripture_app_test_success",
+              "value": 1,
+              "labels": {"test": "random", "instance": "github_actions"}
+            }
+          ]
+        }
+        EOF
+        
+        # Send to Grafana Cloud Metrics Endpoint
+        curl -X POST \
+          -H "Content-Type: application/json" \
+          --data-binary @metrics.json \
+          "$GRAFANA_METRICS_ENDPOINT"
+        
+        echo "✅ Metrics sent to Grafana Cloud"
+        
+        # Also log metrics for visibility in GitHub Actions
+        echo "📊 Metrics Summary:"
+        echo "  Health endpoint: ${HEALTH_TIME}s"
+        echo "  Volumes endpoint: ${VOLUMES_TIME}s" 
+        echo "  Random endpoint: ${RANDOM_TIME}s"
+        echo "  Average response time: $(echo "scale=2; ($HEALTH_TIME + $VOLUMES_TIME + $RANDOM_TIME) / 3" | bc)s"
+        
+    - name: Success notification
+      if: success()
+      run: |
+        echo "🎉 All synthetic tests passed!"
+        echo "✅ Service is healthy and responsive"
+        echo "📊 Performance metrics collected"
+        
+    - name: Failure notification
+      if: failure()
+      run: |
+        echo "❌ Synthetic tests failed!"
+        echo "🚨 Service may be down or experiencing issues"
+        # You could add Slack/Discord notifications here 
