@@ -36,6 +36,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.0] - 2025-01-05
+
+### Added
+- LDS volume control for random scripture endpoint (`include_lds` parameter)
+- Smart defaults for random scripture (OT/NT only by default)
+- Separate loading states for random and search functionality
+- Custom book-themed favicon with lightning bolt design
+- Enhanced mobile experience with optimized spacing
+
+### Changed
+- Random scripture now defaults to non-LDS volumes (OT/NT only)
+- Frontend random scripture calls now include LDS content by default
+- Removed borders around chapter contents for better text visibility
+- Improved loading state management for better user feedback
+
+### Technical Improvements
+- Enhanced database service with volume filtering for random scriptures
+- New optional `include_lds` query parameter on `/api/scriptures/random` endpoint
+- Updated API documentation to reflect new parameters
+- Improved TypeScript integration with new API parameters
+- Better error handling for random scripture requests
+
+### Fixed
+- Loading state conflicts between random and search operations
+- Mobile screen space utilization for better content visibility
+- API backward compatibility maintained
+
+---
+
 ## [Unreleased]
 
 ### Planned Features
