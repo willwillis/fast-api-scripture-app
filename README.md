@@ -2,7 +2,7 @@
 
 A modern, mobile-first scripture reading (and searching) application built with modern web technologies.
 
-![Scripture App Screenshot](./scriptures-app-screenshot.png)
+![Scripture App Screenshot](./docs/screenshots/scriptures-app-screenshot.png)
 
 
 ## Project Structure
