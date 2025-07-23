@@ -201,29 +201,38 @@ class DatabaseService:
             
             return scriptures
     
-    def get_random_scripture(self) -> Scripture:
-        """Get a truly random scripture verse"""
+    def get_random_scripture(self, include_lds: bool = False) -> Scripture:
+        """Get a truly random scripture verse with optional LDS filtering"""
         with self.get_connection() as conn:
             cursor = conn.cursor()
             
-            # Get total count of scriptures
-            cursor.execute("SELECT COUNT(*) FROM scriptures")
+            # Build WHERE clause for LDS filtering
+            where_clause = ""
+            params = []
+            
+            if not include_lds:
+                # Exclude LDS volumes (BoM, D&C, PGP) - only include OT and NT
+                where_clause = "WHERE volume_id IN (1, 2)"
+            
+            # Get total count of scriptures with filter
+            cursor.execute(f"SELECT COUNT(*) FROM scriptures {where_clause}", params)
             result = cursor.fetchone()
             total_count = result[0] if result else 0
             
             if total_count == 0:
-                raise ValueError("No scriptures found in database")
+                raise ValueError("No scriptures found in database with current filter")
             
             # Generate random offset
             import random
             random_offset = random.randint(0, int(total_count) - 1)
             
-            # Get random scripture
-            cursor.execute("""
+            # Get random scripture with filter
+            cursor.execute(f"""
                 SELECT * FROM scriptures 
+                {where_clause}
                 ORDER BY verse_id
                 LIMIT 1 OFFSET ?
-            """, (random_offset,))
+            """, params + [random_offset])
             
             row = cursor.fetchone()
             

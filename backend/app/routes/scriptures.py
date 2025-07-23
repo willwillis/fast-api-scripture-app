@@ -79,10 +79,12 @@ async def get_scripture_by_reference(
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
 @router.get("/random", response_model=Scripture)
-async def get_random_scripture():
-    """Get a random scripture verse"""
+async def get_random_scripture(
+    include_lds: bool = Query(False, description="Include LDS scriptures (BoM, D&C, PGP)")
+):
+    """Get a random scripture verse with optional LDS filtering"""
     try:
-        return db_service.get_random_scripture()
+        return db_service.get_random_scripture(include_lds=include_lds)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
     except Exception as e:
