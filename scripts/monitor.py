@@ -86,7 +86,7 @@ class ScriptureMonitor:
                 "error": str(e)
             }
             
-    def warm_up_service(self, wait_minutes: int = 5) -> bool:
+    def warm_up_service(self, wait_minutes: int = 0) -> bool:
         """Warm up the service with initial requests"""
         self.log("Starting service warm-up...")
         
@@ -181,6 +181,49 @@ class ScriptureMonitor:
         print("="*60)
         
         return all_passed
+        
+    def send_to_grafana(self, results: Dict[str, Any], url: str, username: str, api_key: str):
+        """Send metrics to Grafana Cloud"""
+        try:
+            import requests
+            
+            # Create Prometheus format metrics
+            metrics_lines = []
+            
+            for test_name, result in results["tests"].items():
+                if result["status"] == "success":
+                    response_time = result.get("response_time", 0)
+                    # Use proper Prometheus metric names (no hyphens in metric names)
+                    metrics_lines.append(f'scripture_app_response_time_seconds{{endpoint="{test_name}",instance="local"}} {response_time}')
+                    metrics_lines.append(f'scripture_app_test_success{{test="{test_name}",instance="local"}} 1')
+                else:
+                    metrics_lines.append(f'scripture_app_test_success{{test="{test_name}",instance="local"}} 0')
+            
+            # Add health status
+            health_result = results["tests"].get("health", {})
+            if health_result.get("status") == "success":
+                metrics_lines.append(f'scripture_app_health_status{{instance="local"}} 1')
+            else:
+                metrics_lines.append(f'scripture_app_health_status{{instance="local"}} 0')
+            
+            metrics_text = "\n".join(metrics_lines)
+            
+            # Send to Grafana Cloud
+            response = requests.post(
+                url,
+                data=metrics_text,
+                headers={"Content-Type": "text/plain"},
+                auth=(username, api_key),
+                timeout=10
+            )
+            
+            if response.status_code == 200:
+                self.log("Metrics sent to Grafana Cloud successfully")
+            else:
+                self.log(f"Failed to send metrics: {response.status_code} - {response.text}", "ERROR")
+                
+        except Exception as e:
+            self.log(f"Error sending to Grafana: {e}", "ERROR")
 
 def main():
     """Main function"""
@@ -194,6 +237,9 @@ def main():
     parser.add_argument("--wait", type=int, default=5,
                        help="Wait time in minutes for warm-up (default: 5)")
     parser.add_argument("--output", help="Save results to JSON file")
+    parser.add_argument("--grafana-url", help="Grafana Cloud metrics URL")
+    parser.add_argument("--grafana-username", help="Grafana Cloud username")
+    parser.add_argument("--grafana-api-key", help="Grafana Cloud API key")
     
     args = parser.parse_args()
     
@@ -207,6 +253,10 @@ def main():
             with open(args.output, 'w') as f:
                 json.dump(results, f, indent=2)
             print(f"Results saved to {args.output}")
+            
+        # Send to Grafana Cloud if credentials provided
+        if args.grafana_url and args.grafana_username and args.grafana_api_key:
+            monitor.send_to_grafana(results, args.grafana_url, args.grafana_username, args.grafana_api_key)
             
         sys.exit(0 if success else 1)
         

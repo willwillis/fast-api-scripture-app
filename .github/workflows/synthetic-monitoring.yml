@@ -20,6 +20,9 @@ jobs:
         # Set your API URL here
         echo "API_URL=https://scriptures-fast-api.onrender.com" >> $GITHUB_ENV
         
+        # Grafana Cloud Metrics Endpoint (disabled for now)
+        echo "GRAFANA_METRICS_ENDPOINT=" >> $GITHUB_ENV
+        
     - name: Warm up service
       run: |
         echo "🔄 Starting service warm-up..."
@@ -116,6 +119,69 @@ jobs:
         if (( $(echo "$RANDOM_TIME > 10" | bc -l) )); then
           echo "⚠️ Random endpoint is slow: ${RANDOM_TIME}s"
         fi
+        
+    - name: Send metrics to Grafana Cloud
+      if: env.GRAFANA_METRICS_ENDPOINT != ''
+      run: |
+        echo "📊 Sending metrics to Grafana Cloud..."
+        
+        # Create metrics in JSON format for Metrics Endpoint
+        cat << EOF > metrics.json
+        {
+          "metrics": [
+            {
+              "name": "scripture_app_response_time_seconds",
+              "value": $HEALTH_TIME,
+              "labels": {"endpoint": "health", "instance": "github_actions"}
+            },
+            {
+              "name": "scripture_app_response_time_seconds", 
+              "value": $VOLUMES_TIME,
+              "labels": {"endpoint": "volumes", "instance": "github_actions"}
+            },
+            {
+              "name": "scripture_app_response_time_seconds",
+              "value": $RANDOM_TIME, 
+              "labels": {"endpoint": "random", "instance": "github_actions"}
+            },
+            {
+              "name": "scripture_app_health_status",
+              "value": 1,
+              "labels": {"instance": "github_actions"}
+            },
+            {
+              "name": "scripture_app_test_success",
+              "value": 1,
+              "labels": {"test": "health", "instance": "github_actions"}
+            },
+            {
+              "name": "scripture_app_test_success",
+              "value": 1,
+              "labels": {"test": "volumes", "instance": "github_actions"}
+            },
+            {
+              "name": "scripture_app_test_success",
+              "value": 1,
+              "labels": {"test": "random", "instance": "github_actions"}
+            }
+          ]
+        }
+        EOF
+        
+        # Send to Grafana Cloud Metrics Endpoint
+        curl -X POST \
+          -H "Content-Type: application/json" \
+          --data-binary @metrics.json \
+          "$GRAFANA_METRICS_ENDPOINT"
+        
+        echo "✅ Metrics sent to Grafana Cloud"
+        
+        # Also log metrics for visibility in GitHub Actions
+        echo "📊 Metrics Summary:"
+        echo "  Health endpoint: ${HEALTH_TIME}s"
+        echo "  Volumes endpoint: ${VOLUMES_TIME}s" 
+        echo "  Random endpoint: ${RANDOM_TIME}s"
+        echo "  Average response time: $(echo "scale=2; ($HEALTH_TIME + $VOLUMES_TIME + $RANDOM_TIME) / 3" | bc)s"
         
     - name: Success notification
       if: success()
