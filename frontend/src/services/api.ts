@@ -76,7 +76,7 @@ export const scriptureApi = {
 
   // Get random scripture
   getRandomScripture: async (): Promise<Scripture> => {
-    const response = await api.get('/api/scriptures/random');
+    const response = await api.get('/api/scriptures/random?include_lds=true');
     return response.data;
   },
 
