@@ -1,3 +1,6 @@
+import newrelic.agent
+# New Relic will auto-initialize from environment variables on Render
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .routes import scriptures
