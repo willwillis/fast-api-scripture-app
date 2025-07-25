@@ -6,7 +6,7 @@ A modern, mobile-first scripture reading application that makes exploring the LD
 
 ## 💪 Motivation
 - I wanted to kick the tires on Python's FastAPI and React (and what inspired the name `fast scriptures`)
-- I recently found `uv` and prefer it over `pip`
+- I recently found `uv` for python and wanted to use it in a "real world" project, same for `Vite` on the front-end
 - I wanted a playground where I could run tests, use github actions, tinker with apm and observability
 - I wanted to keep my web development skills fresh
 

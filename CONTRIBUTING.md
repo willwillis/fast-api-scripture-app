@@ -231,34 +231,6 @@ npm run test:coverage
 - **[GitHub Discussions](https://github.com/willwillis/fast-api-scripture-app/discussions)** - Ask questions and share ideas
 - **[Issues](https://github.com/willwillis/fast-api-scripture-app/issues)** - Report bugs and request features
 
-## 🎯 Beginner-Friendly Issues
-
-Looking for a place to start? Check out issues labeled:
-- `good first issue` - Perfect for new contributors
-- `documentation` - Help improve our docs
-- `bug` - Fix something that's broken
-- `enhancement` - Add new functionality
-
-## 📞 Getting Help
-
-### Stuck on Something?
-1. **Check our documentation** - Most questions are answered there
-2. **Search existing issues** - Someone might have asked already
-3. **Create a discussion** - Ask questions and get help
-4. **Review existing code** - See how similar features are implemented
-
-### Communication Guidelines
-- **Be respectful** and inclusive in all interactions
-- **Search first** before asking questions
-- **Provide context** when asking for help
-- **Say thank you** - We're all volunteers here!
-
-## 🏆 Recognition
-
-We appreciate all contributions! Contributors will be:
-- **Listed** in our README contributors section
-- **Mentioned** in release notes for significant contributions
-- **Invited** to join our contributors team
 
 ## 📝 License
 
@@ -279,10 +251,5 @@ Before submitting your PR, make sure you can check all these boxes:
 - [ ] I've filled out the PR template completely
 - [ ] All CI checks are passing
 
-**Thank you for contributing to Fast Scriptures!** 🎉
-
-Your contributions help make scripture study more accessible and enjoyable for everyone.
 
 ---
-
-**Quick Links:** [Developer Guide](./docs/developer-guide.md) | [Testing Guide](./docs/testing-guide.md) | [Documentation Index](./docs/README.md) | [Issues](https://github.com/willwillis/fast-api-scripture-app/issues)
