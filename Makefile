@@ -57,6 +57,9 @@ clean-frontend: ## Clean frontend build artifacts
 
 # Full development workflow
 setup: install ## Complete project setup
+	@echo "Installing pre-commit hooks..."
+	cd backend && make pre-commit-install
+	cd frontend && make pre-commit-install
 	@echo "Project setup complete!"
 	@echo "Run 'make dev' to start development servers"
 	@echo "Run 'make test' to run all tests"

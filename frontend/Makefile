@@ -46,6 +46,16 @@ install: ## Install dependencies
 install-prod: ## Install production dependencies only
 	npm ci --only=production
 
+# Pre-commit integration
+pre-commit-install: ## Install pre-commit hooks
+	pre-commit install
+
+pre-commit-run: ## Run pre-commit on all files
+	pre-commit run --all-files
+
+pre-commit-update: ## Update pre-commit hooks
+	pre-commit autoupdate
+
 # Combined quality checks
 quality: ## Run all quality checks and fix issues
 	npm run format && npm run lint:fix && npm run typecheck

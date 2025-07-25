@@ -38,3 +38,13 @@ repos:
         additional_dependencies:
           - types-requests
           - types-PyYAML
+
+  - repo: local
+    hooks:
+      - id: check-uv-lockfile
+        name: Check uv lockfile
+        entry: uv lock --check
+        language: system
+        files: ^pyproject\.toml$
+        pass_filenames: false
+        stages: [pre-commit]

@@ -1,0 +1,58 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-json
+      - id: debug-statements
+
+  - repo: local
+    hooks:
+      - id: check-backend-lockfile
+        name: Check backend lockfile
+        entry: bash -c 'cd backend && uv lock --check'
+        language: system
+        files: ^backend/pyproject\.toml$
+        pass_filenames: false
+
+      - id: check-frontend-lockfile
+        name: Check frontend lockfile
+        entry: bash -c 'cd frontend && npm ci --dry-run'
+        language: system
+        files: ^frontend/package\.json$
+        pass_filenames: false
+
+      - id: check-dependency-sync
+        name: Check dependency synchronization
+        entry: bash -c 'cd backend && uv lock --check && cd ../frontend && npm ci --dry-run && echo "✅ All dependency lockfiles are in sync!"'
+        language: system
+        files: ^(backend/pyproject\.toml|frontend/package\.json)$
+        pass_filenames: false
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        files: ^frontend/.*\.(js|jsx|ts|tsx|json|css|md)$
+        exclude: ^frontend/node_modules/
+        additional_dependencies:
+          - prettier@^3.0.0
+
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.57.1
+    hooks:
+      - id: eslint
+        files: ^frontend/.*\.(js|jsx|ts|tsx)$
+        exclude: ^frontend/node_modules/
+        additional_dependencies:
+          - eslint@^8.57.1
+          - '@eslint/js@^9.31.0'
+          - '@typescript-eslint/eslint-plugin@^6.21.0'
+          - '@typescript-eslint/parser@^6.21.0'
+          - eslint-plugin-react@^7.37.5
+          - eslint-plugin-react-hooks@^4.6.2
