@@ -41,9 +41,9 @@ repos:
 
   - repo: local
     hooks:
-      - id: check-uv-lockfile
-        name: Check uv lockfile
-        entry: uv lock --check
+      - id: update-uv-lockfile
+        name: Update uv lockfile
+        entry: uv lock
         language: system
         files: ^pyproject\.toml$
         pass_filenames: false
