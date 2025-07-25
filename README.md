@@ -2,6 +2,9 @@
 
 A modern, mobile-first scripture reading application that makes exploring the LDS scriptures fast, beautiful, and accessible.
 
+[![codecov](https://codecov.io/gh/willwillis/fast-api-scripture-app/branch/main/
+  graph/badge.svg)](https://codecov.io/gh/willwillis/fast-api-scripture-app)
+
 ![Scripture App Screenshot](./docs/screenshots/scriptures-app-screenshot.png)
 
 ## 💪 Motivation
