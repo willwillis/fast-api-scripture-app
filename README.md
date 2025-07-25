@@ -6,12 +6,12 @@ A modern, mobile-first scripture reading application that makes exploring the LD
 
 ## ✨ Features
 
-- **🔍 Powerful Search** - Full-text search across all LDS scriptures
+- **🔍 Search** - Full-text search across all LDS scriptures
 - **📱 Mobile-First Design** - Beautiful, responsive interface that works everywhere
 - **🎨 Dark Theme** - Cursor-inspired dark interface that's easy on the eyes
 - **🎲 Random Scriptures** - Discover inspiring verses with one click
 - **⚡ Lightning Fast** - Built with modern technologies for speed
-- **🌐 Always Available** - Deployed and ready to use at [scriptures-fast-api.onrender.com](https://scriptures-fast-api.onrender.com)
+- **🌐 (Almost) Always Available** - Deployed and ready to use at [scriptures-fast-api.onrender.com](https://scriptures-fast-api.onrender.com)
 
 
 ## 🚀 Getting Started

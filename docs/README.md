@@ -35,12 +35,11 @@ Deploying and maintaining the application:
 
 Detailed technical references:
 
-- **[Project Requirements](./project-requirements.md)** - Original specifications and requirements
 - **[Release Notes](./releases/)** - Version history and changelog details
 
 ## 📸 Visual Resources
 
-- **[Screenshots](./screenshots/)** - Application screenshots and visual documentation
+- **[Screenshots](./screenshots/README.md)** - Application screenshots and visual documentation
 
 ## 🗂️ Documentation by Role
 
@@ -68,7 +67,7 @@ Detailed technical references:
 **📖 Understand how everything works**
 - Start with [Project Overview](../README.md) and [Developer Guide](./developer-guide.md)
 - Review [API Standards](./api-standards.md) for backend design principles
-- Check [Release Notes](./releases/) for feature evolution and [Project Requirements](./project-requirements.md) for original specs
+- Check [Release Notes](./releases/) for feature evolution
 
 ## 📚 Documentation Status
 
@@ -82,7 +81,6 @@ Detailed technical references:
 | [Automation Guide](./automation-guide.md) | ✅ Complete | Current | Developers |
 | [Contributing Guidelines](../CONTRIBUTING.md) | ✅ Complete | Current | Contributors |
 | [Submodules Guide](./submodules.md) | ✅ Complete | Current | Developers |
-| [Project Requirements](./project-requirements.md) | ✅ Archive | Current | Reference |
 | **Architecture Overview** | 🚧 Coming Soon | - | All |
 
 ## 🤔 Can't Find What You Need?
@@ -90,7 +88,6 @@ Detailed technical references:
 - Check the [main project README](../README.md) for basic information
 - Browse [GitHub issues and discussions](https://github.com/willwillis/fast-api-scripture-app/issues)
 - Look through our [release notes](./releases/) for feature history
-- Review the [project requirements](./project-requirements.md) for original context
 
 ## 💡 Improving This Documentation
 
