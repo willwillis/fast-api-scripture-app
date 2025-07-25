@@ -1,8 +1,13 @@
 # Fast Scriptures
 
-A modern, mobile-first scripture reading application that makes exploring the LDS scriptures fast, beautiful, and accessible.
-
+[![CI](https://github.com/willwillis/fast-api-scripture-app/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/willwillis/fast-api-scripture-app/actions)
 [![codecov](https://codecov.io/gh/willwillis/fast-api-scripture-app/branch/main/graph/badge.svg)](https://codecov.io/gh/willwillis/fast-api-scripture-app)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi)](https://fastapi.tiangolo.com)
+[![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)](https://reactjs.org)
+
+A modern, mobile-first scripture reading application that makes exploring the LDS scriptures fast, beautiful, and accessible.
 
 ![Scripture App Screenshot](./docs/screenshots/scriptures-app-screenshot.png)
 
