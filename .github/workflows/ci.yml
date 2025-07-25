@@ -15,6 +15,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        submodules: true
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
@@ -30,6 +32,11 @@ jobs:
       run: |
         cd backend
         uv sync
+
+    - name: Setup database
+      run: |
+        cd backend
+        python setup_database.py
 
     - name: Run linting
       run: |
@@ -61,6 +68,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        submodules: true
 
     - name: Set up Node.js
       uses: actions/setup-node@v4
@@ -105,6 +114,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        submodules: true
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -133,6 +144,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        submodules: true
 
     - name: Set up Python
       uses: actions/setup-python@v4
