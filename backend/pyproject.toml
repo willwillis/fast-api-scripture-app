@@ -24,6 +24,15 @@ dependencies = [
 ]
 requires-python = ">=3.9"
 
+[tool.isort]
+profile = "black"
+line_length = 88
+multi_line_output = 3
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+
 [tool.uv]
 dev-dependencies = [
     "pytest>=7.0.0",
