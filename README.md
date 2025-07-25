@@ -4,28 +4,31 @@ A modern, mobile-first scripture reading application that makes exploring the LD
 
 ![Scripture App Screenshot](./docs/screenshots/scriptures-app-screenshot.png)
 
+## Motivation
+- I wanted to kick the tires on Python's FastAPI and React
+- I recently found `uv` and prefer it over `pip`
+- I wanted a playground where I could run tests, use github actions, tinker with apm and observability
+- I wanted to keep my web development skills fresh
+
 ## ✨ Features
 
-- **🔍 Search** - Full-text search across all LDS scriptures
-- **📱 Mobile-First Design** - Beautiful, responsive interface that works everywhere
-- **🎨 Dark Theme** - Cursor-inspired dark interface that's easy on the eyes
-- **🎲 Random Scriptures** - Discover inspiring verses with one click
-- **⚡ Lightning Fast** - Built with modern technologies for speed
-- **🌐 (Almost) Always Available** - Deployed and ready to use at [scriptures-fast-api.onrender.com](https://scriptures-fast-api.onrender.com)
-- **🔒 Secure** - Built with security best practices and regular vulnerability scanning
+- Read the scriptures
+- Search the scriptures
+- Get a random scripture
+- open scripture API
 
 
 ## 🚀 Getting Started
 
-### New to the Project?
+### Welcome!
 
-👋 **Welcome!** Whether you want to contribute, explore, or just run the app locally, we've got you covered:
+👋 Whether you want to contribute, explore, or just run the app locally, we've got you covered:
 
 **[📖 Getting Started Guide](./docs/getting-started.md)** - Complete setup instructions and your first contribution
 
-**[📚 Documentation Hub](./docs/README.md)** - All documentation organized and easy to navigate
+**[📚 Documentation Hub](./docs/README.md)** - All documentation organized and (hopefully) easy to navigate
 
-### Quick Try
+### Quick Start
 
 Want to see it in action? Visit the live app: **[scriptures-fast-api.onrender.com](https://scriptures-fast-api.onrender.com)**
 
@@ -61,7 +64,7 @@ See our **[Architecture Overview](./docs/architecture.md)** *(coming soon)* for 
 
 ## 🤝 Contributing
 
-We welcome contributions! Here's how to get involved:
+This is a personal project, and the functinoality is a bit contrived, but if you want to contribute, here's how to get involved:
 
 1. **Start with our [Getting Started Guide](./docs/getting-started.md)** - Everything you need to know
 2. **Browse the [Documentation](./docs/README.md)** - Organized by what you want to do
@@ -76,8 +79,11 @@ git commit -m "feat: describe your change"
 git push -u origin your-feature-name
 # Create a Pull Request
 ```
+Other ways to be involved:
 
-All PRs get automatic testing across Python 3.9-3.12 and comprehensive quality checks.
+- **🐛 Report Issues**: [GitHub Issues](https://github.com/willwillis/fast-api-scripture-app/issues)
+- **💡 Feature Requests**: [GitHub Discussions](https://github.com/willwillis/fast-api-scripture-app/discussions)
+
 
 ## 📡 API Reference
 
@@ -108,21 +114,6 @@ Our documentation is organized to help you find exactly what you need:
 - **[📋 API Standards](./docs/api-standards.md)** - Comprehensive API design principles
 - **[🚀 Deployment Guide](./docs/deployment.md)** - How to deploy to production
 - **[📊 Monitoring](./docs/monitoring-setup.md)** - New Relic observability setup
-
-## 🏆 Project Status
-
-- ✅ **Active Development** - Regularly updated and maintained
-- ✅ **Production Ready** - Deployed and stable at [scriptures-fast-api.onrender.com](https://scriptures-fast-api.onrender.com)
-- ✅ **Well Tested** - Comprehensive test suite with CI/CD
-- ✅ **Documented** - Extensive documentation for contributors
-- ✅ **Open Source** - MIT License, community contributions welcome
-
-## 📞 Support & Community
-
-- **🐛 Report Issues**: [GitHub Issues](https://github.com/willwillis/fast-api-scripture-app/issues)
-- **💡 Feature Requests**: [GitHub Discussions](https://github.com/willwillis/fast-api-scripture-app/discussions)
-- **📖 Documentation**: [docs/README.md](./docs/README.md)
-- **🤝 Contributing**: [docs/getting-started.md](./docs/getting-started.md)
 
 ---
 
