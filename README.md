@@ -76,6 +76,46 @@ npm run dev
 
 The application will be available at `http://localhost:5173`
 
+## Testing & CI/CD
+
+### Running Tests
+
+**Backend Tests:**
+```bash
+cd backend
+uv run pytest tests/ -v
+```
+
+**Frontend Tests:**
+```bash
+cd frontend
+npm run test
+```
+
+### Quality Checks
+
+**Backend Linting:**
+```bash
+cd backend
+uv run black --check app tests
+uv run isort --check-only app tests
+uv run flake8 app tests
+```
+
+**Frontend Linting:**
+```bash
+cd frontend
+npm run lint
+```
+
+### CI/CD Pipeline
+
+The project uses GitHub Actions for automated testing across:
+- **Python versions**: 3.9, 3.10, 3.11, 3.12
+- **Quality gates**: Linting, formatting, security scanning
+- **Test coverage**: Automated coverage reporting
+- **Database setup**: Automated submodule checkout and database preparation
+
 ## API Endpoints
 
 ### Scripture Endpoints
@@ -129,6 +169,15 @@ The application uses the SQLite database located at `submodules/lds-scriptures/s
 
 - **[Render](https://render.com/)** - Cloud platform for hosting web services and static sites
 - **[Git](https://git-scm.com/)** - Distributed version control system
+
+### SDLC & Quality Assurance
+
+- **[GitHub Actions](https://github.com/features/actions)** - CI/CD pipeline with automated testing
+- **[Vitest](https://vitest.dev/)** - Fast unit testing for React frontend
+- **[Pytest](https://pytest.org/)** - Comprehensive testing for FastAPI backend
+- **[ESLint](https://eslint.org/)** - Modern flat config with TypeScript support
+- **[Black](https://black.readthedocs.io/)** - Code formatting and style enforcement
+- **[Bandit](https://bandit.readthedocs.io/)** - Security scanning and vulnerability detection
 
 
 ## Contributing
