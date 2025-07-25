@@ -107,4 +107,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bookmarking functionality
 - Reading progress tracking
 - Dark/light theme toggle
-- Offline reading capabilities 
+- Offline reading capabilities

@@ -1,10 +1,20 @@
-from fastapi import APIRouter, HTTPException, Query
 from typing import List, Optional
-from ..models.scripture import Volume, Book, Chapter, Verse, Scripture, ScriptureResponse
+
+from fastapi import APIRouter, HTTPException, Query
+
+from ..models.scripture import (
+    Book,
+    Chapter,
+    Scripture,
+    ScriptureResponse,
+    Verse,
+    Volume,
+)
 from ..services.database import DatabaseService
 
 router = APIRouter(prefix="/api/scriptures", tags=["scriptures"])
 db_service = DatabaseService()
+
 
 @router.get("/volumes", response_model=List[Volume])
 async def get_volumes():
@@ -14,6 +24,7 @@ async def get_volumes():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
+
 @router.get("/volumes/{volume_id}/books", response_model=List[Book])
 async def get_books_by_volume(volume_id: int):
     """Get all books for a specific volume"""
@@ -21,6 +32,7 @@ async def get_books_by_volume(volume_id: int):
         return db_service.get_books_by_volume(volume_id)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+
 
 @router.get("/books/{book_id}/chapters", response_model=List[Chapter])
 async def get_chapters_by_book(book_id: int):
@@ -30,6 +42,7 @@ async def get_chapters_by_book(book_id: int):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
+
 @router.get("/chapters/{chapter_id}/verses", response_model=List[Verse])
 async def get_verses_by_chapter(chapter_id: int):
     """Get all verses for a specific chapter"""
@@ -38,24 +51,23 @@ async def get_verses_by_chapter(chapter_id: int):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
+
 @router.get("/search", response_model=ScriptureResponse)
 async def search_scriptures(
     q: str = Query(..., description="Search query"),
     limit: int = Query(50, ge=1, le=100, description="Number of results to return"),
     offset: int = Query(0, ge=0, description="Number of results to skip"),
-    volume_id: Optional[int] = Query(None, description="Filter by volume ID")
+    volume_id: Optional[int] = Query(None, description="Filter by volume ID"),
 ):
     """Search scriptures by text content with optional volume filter"""
     try:
         scriptures, total = db_service.search_scriptures(q, limit, offset, volume_id)
         return ScriptureResponse(
-            scriptures=scriptures,
-            total=total,
-            limit=limit,
-            offset=offset
+            scriptures=scriptures, total=total, limit=limit, offset=offset
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+
 
 @router.get("/search/volumes", response_model=List[dict])
 async def get_search_volume_counts(q: str = Query(..., description="Search query")):
@@ -66,11 +78,12 @@ async def get_search_volume_counts(q: str = Query(..., description="Search query
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
+
 @router.get("/reference/{book_title}/{chapter}", response_model=List[Scripture])
 async def get_scripture_by_reference(
     book_title: str,
     chapter: int,
-    verse: Optional[int] = Query(None, description="Specific verse number")
+    verse: Optional[int] = Query(None, description="Specific verse number"),
 ):
     """Get scripture by book, chapter, and optional verse"""
     try:
@@ -78,9 +91,12 @@ async def get_scripture_by_reference(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
+
 @router.get("/random", response_model=Scripture)
 async def get_random_scripture(
-    include_lds: bool = Query(False, description="Include LDS scriptures (BoM, D&C, PGP)")
+    include_lds: bool = Query(
+        False, description="Include LDS scriptures (BoM, D&C, PGP)"
+    )
 ):
     """Get a random scripture verse with optional LDS filtering"""
     try:
@@ -88,4 +104,4 @@ async def get_random_scripture(
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}") 
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")

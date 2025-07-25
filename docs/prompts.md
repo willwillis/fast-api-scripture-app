@@ -1,4 +1,4 @@
-# Overview 
+# Overview
 I want to create a scripture reading web application application
 I want the style to be dark background with soft muted hilights, similar to the cursor code editing UI
 
@@ -7,7 +7,7 @@ FastAPI using sqlite database stored in ./submodules/sqlite/lds-scriptures-sqlit
 
 
 # Frontend
-Vite + React 
+Vite + React
 I want the front-end to be mobile first and responsive for desktop clients.
 The mobile interface should be intuitive and very small hacker like text.
 Before starting the project suggest to me what CSS library or framework I might want to use to accomplish this.

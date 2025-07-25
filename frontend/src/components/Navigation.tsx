@@ -192,4 +192,4 @@ export const Navigation: React.FC<NavigationProps> = ({ onChapterSelect }) => {
       </div>
     </div>
   );
-}; 
+};

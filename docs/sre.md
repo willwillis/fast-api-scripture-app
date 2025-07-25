@@ -244,6 +244,6 @@ Sentry + Custom Metrics
 
 ---
 
-**Last Updated**: January 2025  
-**Maintained By**: SRE Team  
-**Review Schedule**: Quarterly 
+**Last Updated**: January 2025
+**Maintained By**: SRE Team
+**Review Schedule**: Quarterly

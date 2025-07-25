@@ -46,16 +46,16 @@ This guide covers the monitoring and observability setup for the Scripture App, 
    ```bash
    # Basic monitoring with 5-minute warm-up
    python scripts/monitor.py
-   
+
    # Test without warm-up
    python scripts/monitor.py --warm-up false
-   
+
    # Custom warm-up time (2 minutes)
    python scripts/monitor.py --wait 2
-   
+
    # Test against production URL
    python scripts/monitor.py --url https://scriptures-fast-api.onrender.com
-   
+
    # Save results to file
    python scripts/monitor.py --output results.json
    ```
@@ -160,13 +160,13 @@ sleep 300  # 5 minutes
 ### **Grafana Dashboard Queries**
 ```sql
 -- Average response time by endpoint
-SELECT endpoint, AVG(response_time) 
-FROM monitoring_metrics 
+SELECT endpoint, AVG(response_time)
+FROM monitoring_metrics
 GROUP BY endpoint
 
 -- Cold start detection
-SELECT COUNT(*) 
-FROM monitoring_metrics 
+SELECT COUNT(*)
+FROM monitoring_metrics
 WHERE response_time > 30
 ```
 
@@ -217,6 +217,6 @@ python scripts/monitor.py --url http://localhost:8000
 
 ---
 
-**Last Updated**: January 2025  
-**Maintained By**: SRE Team  
-**Review Schedule**: Monthly 
+**Last Updated**: January 2025
+**Maintained By**: SRE Team
+**Review Schedule**: Monthly

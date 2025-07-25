@@ -33,14 +33,14 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ volume, book, chap
   const currentChapterIndex = chapters.findIndex(c => c.id === chapter.id);
   const hasPrevious = currentChapterIndex > 0 && chapters.length > 0;
   const hasNext = currentChapterIndex < chapters.length - 1 && chapters.length > 0;
-  
+
   const handlePrevious = () => {
     if (hasPrevious && currentChapterIndex > 0) {
       const prevChapter = chapters[currentChapterIndex - 1];
       onChapterSelect(volume, book, prevChapter);
     }
   };
-  
+
   const handleNext = () => {
     if (hasNext && currentChapterIndex < chapters.length - 1) {
       const nextChapter = chapters[currentChapterIndex + 1];
@@ -145,11 +145,11 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ volume, book, chap
           >
             &lt;&lt; Previous
           </button>
-          
+
           <span className="text-xs text-cursor-text-muted">
             Chapter {chapter.chapter_number} {chapters.length > 0 ? `of ${chapters.length}` : ''}
           </span>
-          
+
           <button
             onClick={handleNext}
             disabled={!hasNext}
@@ -165,4 +165,4 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ volume, book, chap
       </div>
     </div>
   );
-}; 
+};

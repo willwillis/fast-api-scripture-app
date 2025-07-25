@@ -1,12 +1,12 @@
 import { useState, useCallback } from 'react';
 import { scriptureApi } from '../services/api';
-import type { 
-  Volume, 
-  Book, 
-  Chapter, 
-  Verse, 
-  ScriptureResponse, 
-  ScriptureSearch 
+import type {
+  Volume,
+  Book,
+  Chapter,
+  Verse,
+  ScriptureResponse,
+  ScriptureSearch
 } from '../types/scripture';
 
 export const useScriptures = () => {
@@ -77,7 +77,7 @@ export const useScriptures = () => {
     try {
       const data = await scriptureApi.searchScriptures(search);
       setSearchResults(data);
-      
+
       // Get volume counts for the search
       const counts = await scriptureApi.getSearchVolumeCounts(search.query);
       setVolumeCounts(counts);
@@ -89,8 +89,8 @@ export const useScriptures = () => {
   }, []);
 
   const getScriptureByReference = useCallback(async (
-    bookTitle: string, 
-    chapter: number, 
+    bookTitle: string,
+    chapter: number,
     verse?: number
   ) => {
     setLoading(true);
@@ -136,7 +136,7 @@ export const useScriptures = () => {
     volumeCounts,
     loading,
     error,
-    
+
     // Actions
     fetchVolumes,
     fetchBooksByVolume,
@@ -148,4 +148,4 @@ export const useScriptures = () => {
     clearError,
     clearSearchResults,
   };
-}; 
+};
