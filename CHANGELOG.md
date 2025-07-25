@@ -65,6 +65,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.0] - 2025-01-05
+
+### Added
+- New Relic Application Performance Monitoring (APM) for FastAPI backend
+- New Relic Real User Monitoring (RUM) for React frontend
+- Distributed tracing across frontend and backend
+- Comprehensive error tracking and monitoring
+- Synthetic monitoring with GitHub Actions (15-minute intervals)
+- Enhanced health check endpoint with database warm-up
+- Custom metrics for scripture usage patterns and user behavior
+- Performance monitoring for API response times and database queries
+
+### Technical Improvements
+- Updated Python package management to use `uv` instead of `pip`
+- Added `newrelic>=10.15.0` dependency with explicit initialization
+- New Relic Browser agent integration in frontend
+- Environment variable configuration for New Relic monitoring
+- Automated monitoring with warm-up strategy for Render cold starts
+- Enhanced observability with business intelligence metrics
+
+### Monitoring Features
+- Backend APM with response time tracking (p50, p95, p99)
+- Frontend RUM with Core Web Vitals monitoring
+- Database performance and connection health monitoring
+- User interaction and feature usage tracking
+- Error rate monitoring and alerting capabilities
+- Cold start detection and performance impact analysis
+
+### Fixed
+- Render cold start performance issues with warm-up strategy
+- Database connection reliability with enhanced health checks
+- Package management consistency with `uv` integration
+
+---
+
 ## [Unreleased]
 
 ### Planned Features
