@@ -4,8 +4,8 @@ A modern, mobile-first scripture reading application that makes exploring the LD
 
 ![Scripture App Screenshot](./docs/screenshots/scriptures-app-screenshot.png)
 
-## Motivation
-- I wanted to kick the tires on Python's FastAPI and React
+## 💪 Motivation
+- I wanted to kick the tires on Python's FastAPI and React (and what inspired the name `fast scriptures`)
 - I recently found `uv` and prefer it over `pip`
 - I wanted a playground where I could run tests, use github actions, tinker with apm and observability
 - I wanted to keep my web development skills fresh
