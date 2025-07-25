@@ -1,12 +1,12 @@
 import axios from 'axios';
-import type { 
-  Volume, 
-  Book, 
-  Chapter, 
-  Verse, 
-  Scripture, 
-  ScriptureResponse, 
-  ScriptureSearch 
+import type {
+  Volume,
+  Book,
+  Chapter,
+  Verse,
+  Scripture,
+  ScriptureResponse,
+  ScriptureSearch
 } from '../types/scripture';
 
 const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || 'http://localhost:8000';
@@ -65,8 +65,8 @@ export const scriptureApi = {
 
   // Get scripture by reference
   getScriptureByReference: async (
-    bookTitle: string, 
-    chapter: number, 
+    bookTitle: string,
+    chapter: number,
     verse?: number
   ): Promise<Scripture[]> => {
     const params = verse ? `?verse=${verse}` : '';
@@ -87,4 +87,4 @@ export const scriptureApi = {
   },
 };
 
-export default api; 
+export default api;

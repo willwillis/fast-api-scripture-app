@@ -203,4 +203,4 @@ This project uses Render for both frontend and backend deployment with automatic
 - Start with free tier
 - Upgrade individual services as needed
 - Add custom domains when ready
-- Consider CDN for global distribution 
+- Consider CDN for global distribution

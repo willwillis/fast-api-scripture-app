@@ -28,7 +28,7 @@ export const ScriptureReader: React.FC = () => {
   } | null>(null);
   const [viewMode, setViewMode] = useState<'search' | 'navigation' | 'random'>('navigation');
   const [randomLoading, setRandomLoading] = useState(false);
-  
+
   // Ref for auto-scrolling to ChapterReader
   const chapterReaderRef = useRef<HTMLDivElement>(null);
 
@@ -37,9 +37,9 @@ export const ScriptureReader: React.FC = () => {
     if (selectedChapter && chapterReaderRef.current) {
       // Small delay to ensure the component has rendered
       setTimeout(() => {
-        chapterReaderRef.current?.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'start' 
+        chapterReaderRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
         });
       }, 100);
     }
@@ -60,11 +60,11 @@ export const ScriptureReader: React.FC = () => {
   // Helper function to highlight search terms in text
   const highlightSearchTerms = (text: string, searchQuery: string): React.ReactNode => {
     if (!searchQuery.trim()) return text;
-    
+
     const regex = new RegExp(`(${searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
     const parts = text.split(regex);
-    
-    return parts.map((part, index) => 
+
+    return parts.map((part, index) =>
       regex.test(part) ? (
         <mark key={index} className="bg-cursor-accent/10 text-cursor-accent/80 font-normal">
           {part}
@@ -104,9 +104,9 @@ export const ScriptureReader: React.FC = () => {
   const handleVolumeFilter = async (volumeId: number | null) => {
     if (searchQuery.trim()) {
       setSelectedVolumeId(volumeId);
-      await searchScriptures({ 
-        query: searchQuery.trim(), 
-        volumeId: volumeId || undefined 
+      await searchScriptures({
+        query: searchQuery.trim(),
+        volumeId: volumeId || undefined
       });
     }
   };
@@ -120,7 +120,7 @@ export const ScriptureReader: React.FC = () => {
     setSelectedChapter({ volume, book, chapter });
     setViewMode('navigation');
     clearSearchResults();
-    
+
     // Fetch chapters for this book to enable navigation
     await fetchChaptersByBook(book.id);
   };
@@ -285,7 +285,7 @@ export const ScriptureReader: React.FC = () => {
                     <span className="text-cursor-accent"> </span> SEARCH RESULTS: {searchResults.total} FOUND
                     <span className="text-cursor-accent"> </span>
                   </h2>
-                  
+
                   {/* Volume Filter Controls */}
                   <div className="flex items-center gap-2 flex-wrap">
                     {volumeCounts.map(({ volume, count }) => (
@@ -304,7 +304,7 @@ export const ScriptureReader: React.FC = () => {
                           {volume}: {count}
                         </button>
                     ))}
-                    
+
                     {/* Reset Filter Button */}
                     {selectedVolumeId && (
                       <button
@@ -383,4 +383,4 @@ export const ScriptureReader: React.FC = () => {
       </main>
     </div>
   );
-}; 
+};

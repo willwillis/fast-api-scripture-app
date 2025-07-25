@@ -1,15 +1,26 @@
-import os
-import shutil
 from pathlib import Path
 
 # Database configuration
 # Try multiple possible locations for the database file
 possible_paths = [
     Path.cwd() / "lds-scriptures-sqlite.db",  # Copied file in current directory
-    Path.cwd() / "submodules" / "lds-scriptures" / "sqlite" / "lds-scriptures-sqlite.db",  # Submodules from current directory
-    Path(__file__).parent.parent / "lds-scriptures-sqlite.db",  # Relative to app directory
-    Path(__file__).parent.parent.parent / "submodules" / "lds-scriptures" / "sqlite" / "lds-scriptures-sqlite.db",  # Original submodules path
-    Path.cwd().parent / "submodules" / "lds-scriptures" / "sqlite" / "lds-scriptures-sqlite.db",  # Submodules from parent directory
+    Path.cwd()
+    / "submodules"
+    / "lds-scriptures"
+    / "sqlite"
+    / "lds-scriptures-sqlite.db",  # Submodules from current directory
+    Path(__file__).parent.parent
+    / "lds-scriptures-sqlite.db",  # Relative to app directory
+    Path(__file__).parent.parent.parent
+    / "submodules"
+    / "lds-scriptures"
+    / "sqlite"
+    / "lds-scriptures-sqlite.db",  # Original submodules path
+    Path.cwd().parent
+    / "submodules"
+    / "lds-scriptures"
+    / "sqlite"
+    / "lds-scriptures-sqlite.db",  # Submodules from parent directory
 ]
 
 DATABASE_PATH = None
@@ -19,10 +30,12 @@ for path in possible_paths:
         break
 
 if DATABASE_PATH is None:
-    print(f"ERROR: Database file not found. Tried paths:")
+    print("ERROR: Database file not found. Tried paths:")
     for i, path in enumerate(possible_paths):
         print(f"  {i+1}. {path} (exists: {path.exists()})")
-    raise FileNotFoundError(f"Database file not found. Tried paths: {[str(p) for p in possible_paths]}")
+    raise FileNotFoundError(
+        f"Database file not found. Tried paths: {[str(p) for p in possible_paths]}"
+    )
 
 print(f"Using database at: {DATABASE_PATH}")
 
@@ -48,4 +61,4 @@ CORS_ORIGINS = [
     "https://fast-scriptures-frontend.pages.dev",
     # Add your Render frontend domain here
     "https://scriptures-frontend.onrender.com",
-] 
+]

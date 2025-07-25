@@ -1,1 +1,1 @@
-# Fast Scriptures Backend Application 
+# Fast Scriptures Backend Application

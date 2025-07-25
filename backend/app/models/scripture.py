@@ -1,5 +1,7 @@
+from typing import List, Optional
+
 from pydantic import BaseModel
-from typing import Optional, List
+
 
 class Volume(BaseModel):
     id: int
@@ -8,6 +10,7 @@ class Volume(BaseModel):
     volume_subtitle: Optional[str] = None
     volume_short_title: str
     volume_lds_url: Optional[str] = None
+
 
 class Book(BaseModel):
     id: int
@@ -18,16 +21,19 @@ class Book(BaseModel):
     book_short_title: str
     book_lds_url: Optional[str] = None
 
+
 class Chapter(BaseModel):
     id: int
     book_id: int
     chapter_number: int
+
 
 class Verse(BaseModel):
     id: int
     chapter_id: int
     verse_number: int
     scripture_text: str
+
 
 class Scripture(BaseModel):
     volume_id: int
@@ -50,13 +56,15 @@ class Scripture(BaseModel):
     verse_title: str
     verse_short_title: str
 
+
 class ScriptureSearch(BaseModel):
     query: str
     limit: int = 50
     offset: int = 0
 
+
 class ScriptureResponse(BaseModel):
     scriptures: List[Scripture]
     total: int
     limit: int
-    offset: int 
+    offset: int

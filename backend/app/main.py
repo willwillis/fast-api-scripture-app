@@ -1,12 +1,13 @@
 import newrelic.agent
-# Initialize New Relic agent
-newrelic.agent.initialize()
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from .routes import scriptures
-from .utils.config import API_TITLE, API_DESCRIPTION, API_VERSION, CORS_ORIGINS
 from .services.database import DatabaseService
+from .utils.config import API_DESCRIPTION, API_TITLE, API_VERSION, CORS_ORIGINS
+
+# Initialize New Relic agent
+newrelic.agent.initialize()
 
 app = FastAPI(
     title=API_TITLE,
@@ -26,6 +27,7 @@ app.add_middleware(
 # Include routers
 app.include_router(scriptures.router)
 
+
 @app.get("/")
 async def root():
     """Root endpoint"""
@@ -33,8 +35,9 @@ async def root():
         "message": "Fast Scriptures API",
         "version": API_VERSION,
         "docs": "/docs",
-        "redoc": "/redoc"
+        "redoc": "/redoc",
     }
+
 
 @app.get("/health")
 async def health_check():
@@ -43,13 +46,13 @@ async def health_check():
         # Warm up database connection and test a simple query
         db_service = DatabaseService()
         volumes = db_service.get_volumes()
-        
+
         return {
             "status": "healthy",
             "warmed_up": True,
             "database": "connected",
             "volumes_count": len(volumes),
-            "timestamp": "2025-01-05T00:00:00Z"
+            "timestamp": "2025-01-05T00:00:00Z",
         }
     except Exception as e:
         return {
@@ -57,9 +60,11 @@ async def health_check():
             "warmed_up": False,
             "database": "error",
             "error": str(e),
-            "timestamp": "2025-01-05T00:00:00Z"
+            "timestamp": "2025-01-05T00:00:00Z",
         }
+
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000) 
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)

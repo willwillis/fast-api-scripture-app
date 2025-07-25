@@ -70,4 +70,4 @@ The application uses a custom Tailwind CSS theme that mimics the Cursor editor's
 
 ## API Integration
 
-The frontend communicates with the FastAPI backend running on `http://localhost:8000`. Make sure the backend is running before using the frontend. 
+The frontend communicates with the FastAPI backend running on `http://localhost:8000`. Make sure the backend is running before using the frontend.

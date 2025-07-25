@@ -43,4 +43,4 @@ The backend is structured as follows:
 - `app/models/` - Pydantic models for data validation
 - `app/routes/` - API route handlers
 - `app/services/` - Business logic and database operations
-- `app/utils/` - Configuration and utilities 
+- `app/utils/` - Configuration and utilities
