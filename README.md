@@ -1,193 +1,130 @@
-# A FastAPI & React Scripture App
+# Fast Scriptures
 
-A modern, mobile-first scripture reading (and searching) application built with modern web technologies.
+A modern, mobile-first scripture reading application that makes exploring the LDS scriptures fast, beautiful, and accessible.
 
 ![Scripture App Screenshot](./docs/screenshots/scriptures-app-screenshot.png)
 
+## ✨ Features
 
-## Project Structure
+- **🔍 Powerful Search** - Full-text search across all LDS scriptures
+- **📱 Mobile-First Design** - Beautiful, responsive interface that works everywhere
+- **🎨 Dark Theme** - Cursor-inspired dark interface that's easy on the eyes
+- **🎲 Random Scriptures** - Discover inspiring verses with one click
+- **⚡ Lightning Fast** - Built with modern technologies for speed
+- **🌐 Always Available** - Deployed and ready to use at [scriptures-fast-api.onrender.com](https://scriptures-fast-api.onrender.com)
 
-```
-fast-scriptures/
-├── backend/                 # FastAPI backend
-│   ├── app/
-│   │   ├── models/         # Pydantic models
-│   │   ├── routes/         # API endpoints
-│   │   ├── services/       # Business logic
-│   │   ├── utils/          # Configuration
-│   │   └── main.py         # FastAPI app
-│   ├── requirements.txt
-│   └── README.md
-├── frontend/                # React frontend
-│   ├── src/
-│   │   ├── components/     # React components
-│   │   ├── hooks/          # Custom hooks
-│   │   ├── services/       # API services
-│   │   ├── types/          # TypeScript types
-│   │   ├── App.tsx
-│   │   ├── main.tsx
-│   │   └── index.css
-│   ├── package.json
-│   ├── tailwind.config.js
-│   └── README.md
-├── submodules/              # LDS Scriptures database
-│   └── lds-scriptures/
-└── README.md
-```
 
-## Quick Start
+## 🚀 Getting Started
 
-### Prerequisites
+### New to the Project?
 
-- Python 3.8+
-- uv (Python package manager)
-- Node.js 16+
-- npm or yarn
+👋 **Welcome!** Whether you want to contribute, explore, or just run the app locally, we've got you covered:
 
-### Backend Setup
+**[📖 Getting Started Guide](./docs/getting-started.md)** - Complete setup instructions and your first contribution
 
-1. Install Python dependencies:
+**[📚 Documentation Hub](./docs/README.md)** - All documentation organized and easy to navigate
+
+### Quick Try
+
+Want to see it in action? Visit the live app: **[scriptures-fast-api.onrender.com](https://scriptures-fast-api.onrender.com)**
+
+### Quick Local Setup
+
 ```bash
-cd backend
-uv sync
-```
+# Clone and setup
+git clone https://github.com/willwillis/fast-api-scripture-app.git
+cd fast-api-scripture-app
+git submodule update --init --recursive
 
-2. Start the FastAPI server:
-```bash
+# Backend (Terminal 1)
+cd backend && uv sync && python setup_database.py
 uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+# Frontend (Terminal 2)
+cd frontend && npm install && npm run dev
 ```
 
-The API will be available at `http://localhost:8000`
-- API Documentation: `http://localhost:8000/docs`
-- Alternative Docs: `http://localhost:8000/redoc`
+Visit http://localhost:5173 to see your local version!
 
-### Frontend Setup
+## 🏗️ Architecture
 
-1. Install Node.js dependencies:
+Fast Scriptures is built with a modern, clean architecture:
+
+- **Frontend**: React 18 + TypeScript + Tailwind CSS + Vite
+- **Backend**: FastAPI + Python + SQLite
+- **Data**: LDS Scriptures database (as git submodule)
+- **Deployment**: Render (auto-deploy from main branch)
+- **CI/CD**: GitHub Actions with comprehensive testing
+
+See our **[Architecture Overview](./docs/architecture.md)** *(coming soon)* for detailed system design.
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how to get involved:
+
+1. **Start with our [Getting Started Guide](./docs/getting-started.md)** - Everything you need to know
+2. **Browse the [Documentation](./docs/README.md)** - Organized by what you want to do
+3. **Check [Issues](https://github.com/willwillis/fast-api-scripture-app/issues)** - Find something to work on
+4. **Join the conversation** - Create issues, ask questions, share ideas
+
+### Quick Contribution Flow
 ```bash
-cd frontend
-npm install
+git checkout -b your-feature-name
+# Make your changes
+git commit -m "feat: describe your change"
+git push -u origin your-feature-name
+# Create a Pull Request
 ```
 
-2. Start the development server:
+All PRs get automatic testing across Python 3.9-3.12 and comprehensive quality checks.
+
+## 📡 API Reference
+
+The FastAPI backend provides a RESTful API for accessing scripture data.
+
+### Try It Live
+- **API Docs**: [scriptures-fast-api.onrender.com/docs](https://scriptures-fast-api.onrender.com/docs) - Interactive Swagger UI
+- **Alternative Docs**: [scriptures-fast-api.onrender.com/redoc](https://scriptures-fast-api.onrender.com/redoc) - ReDoc interface
+
+### Quick API Example
 ```bash
-npm run dev
+# Get a random scripture
+curl -s 'https://scriptures-fast-api.onrender.com/api/scriptures/random' | jq -r '"\(.verse_title)\n\(.scripture_text)"'
+
+# Search for "love"
+curl -s 'https://scriptures-fast-api.onrender.com/api/scriptures/search?q=love&limit=3'
 ```
 
-The application will be available at `http://localhost:5173`
+For complete API documentation, see our **[API Standards Guide](./docs/api-standards.md)**.
 
-## Testing & CI/CD
+## 📚 Documentation
 
-### Running Tests
+Our documentation is organized to help you find exactly what you need:
 
-**Backend Tests:**
-```bash
-cd backend
-uv run pytest tests/ -v
-```
+- **[📖 Getting Started](./docs/getting-started.md)** - New contributor onboarding
+- **[📚 Documentation Hub](./docs/README.md)** - All docs organized by role and task
+- **[🛠️ Development Workflow](./docs/development-workflow.md)** - How we develop and collaborate
+- **[📋 API Standards](./docs/api-standards.md)** - Comprehensive API design principles
+- **[🚀 Deployment Guide](./docs/deployment.md)** - How to deploy to production
+- **[📊 Monitoring](./docs/monitoring-setup.md)** - New Relic observability setup
 
-**Frontend Tests:**
-```bash
-cd frontend
-npm run test
-```
+## 🏆 Project Status
 
-### Quality Checks
+- ✅ **Active Development** - Regularly updated and maintained
+- ✅ **Production Ready** - Deployed and stable at [scriptures-fast-api.onrender.com](https://scriptures-fast-api.onrender.com)
+- ✅ **Well Tested** - Comprehensive test suite with CI/CD
+- ✅ **Documented** - Extensive documentation for contributors
+- ✅ **Open Source** - MIT License, community contributions welcome
 
-**Backend Linting:**
-```bash
-cd backend
-uv run black --check app tests
-uv run isort --check-only app tests
-uv run flake8 app tests
-```
+## 📞 Support & Community
 
-**Frontend Linting:**
-```bash
-cd frontend
-npm run lint
-```
+- **🐛 Report Issues**: [GitHub Issues](https://github.com/willwillis/fast-api-scripture-app/issues)
+- **💡 Feature Requests**: [GitHub Discussions](https://github.com/willwillis/fast-api-scripture-app/discussions)
+- **📖 Documentation**: [docs/README.md](./docs/README.md)
+- **🤝 Contributing**: [docs/getting-started.md](./docs/getting-started.md)
 
-### CI/CD Pipeline
-
-The project uses GitHub Actions for automated testing across:
-- **Python versions**: 3.9, 3.10, 3.11, 3.12
-- **Quality gates**: Linting, formatting, security scanning
-- **Test coverage**: Automated coverage reporting
-- **Database setup**: Automated submodule checkout and database preparation
-
-## API Endpoints
-
-### Scripture Endpoints
-
-- `GET /api/scriptures/volumes` - Get all volumes
-- `GET /api/scriptures/volumes/{volume_id}/books` - Get books by volume
-- `GET /api/scriptures/books/{book_id}/chapters` - Get chapters by book
-- `GET /api/scriptures/chapters/{chapter_id}/verses` - Get verses by chapter
-- `GET /api/scriptures/search?q={query}` - Search scriptures
-- `GET /api/scriptures/reference/{book_title}/{chapter}` - Get scripture by reference
-- `GET /api/scriptures/random` - Get random scripture
-
-
-### Utility Endpoints
-
-- `GET /` - API information
-- `GET /health` - Health check
-
-### API Example - get a random scripture
-
-```
-curl -s -X 'GET' 'https://scriptures-fast-api.onrender.com/api/scriptures/random' -H 'accept: application/json' | jq -r '"\(.verse_title)\n\(.scripture_text)"'
-
-Matthew 26:56
-But all this was done, that the scriptures of the prophets might be fulfilled. Then all the disciples forsook him, and fled.
-```
-
-## Database
-
-The application uses the SQLite database located at `submodules/lds-scriptures/sqlite/lds-scriptures-sqlite.db`. This contains the complete LDS scriptures in a structured format.
-
-## Tech Stack
-
-### Backend Technologies
-
-- **[FastAPI](https://fastapi.tiangolo.com/)** - Modern, fast web framework for building APIs with Python
-- **[SQLite](https://www.sqlite.org/)** - Lightweight, serverless database engine
-- **[Pydantic](https://pydantic.dev/)** - Data validation and settings management using Python type annotations
-- **[Uvicorn](https://www.uvicorn.org/)** - Lightning-fast ASGI server implementation
-- **[uv](https://docs.astral.sh/uv/)** - Fast Python package installer and resolver
-
-### Frontend Technologies
-
-- **[React 18](https://react.dev/)** - JavaScript library for building user interfaces
-- **[TypeScript](https://www.typescriptlang.org/)** - Typed superset of JavaScript for better developer experience
-- **[Vite](https://vitejs.dev/)** - Next generation frontend tooling for fast development and building
-- **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework for rapid UI development
-- **[Axios](https://axios-http.com/)** - Promise-based HTTP client for the browser and Node.js
-
-### Development & Deployment
-
-- **[Render](https://render.com/)** - Cloud platform for hosting web services and static sites
-- **[Git](https://git-scm.com/)** - Distributed version control system
-
-### SDLC & Quality Assurance
-
-- **[GitHub Actions](https://github.com/features/actions)** - CI/CD pipeline with automated testing
-- **[Vitest](https://vitest.dev/)** - Fast unit testing for React frontend
-- **[Pytest](https://pytest.org/)** - Comprehensive testing for FastAPI backend
-- **[ESLint](https://eslint.org/)** - Modern flat config with TypeScript support
-- **[Black](https://black.readthedocs.io/)** - Code formatting and style enforcement
-- **[Bandit](https://bandit.readthedocs.io/)** - Security scanning and vulnerability detection
-
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+---
 
 ## License
 
-This project is open source and available under the MIT License.
+This project is open source and available under the [MIT License](LICENSE).

@@ -1,4 +1,3 @@
-import newrelic.agent
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -6,8 +5,14 @@ from .routes import scriptures
 from .services.database import DatabaseService
 from .utils.config import API_DESCRIPTION, API_TITLE, API_VERSION, CORS_ORIGINS
 
-# Initialize New Relic agent
-newrelic.agent.initialize()
+# Initialize New Relic agent (optional)
+try:
+    import newrelic.agent
+
+    newrelic.agent.initialize()
+    NEW_RELIC_AVAILABLE = True
+except ImportError:
+    NEW_RELIC_AVAILABLE = False
 
 app = FastAPI(
     title=API_TITLE,
