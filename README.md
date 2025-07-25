@@ -12,6 +12,7 @@ A modern, mobile-first scripture reading application that makes exploring the LD
 - **🎲 Random Scriptures** - Discover inspiring verses with one click
 - **⚡ Lightning Fast** - Built with modern technologies for speed
 - **🌐 (Almost) Always Available** - Deployed and ready to use at [scriptures-fast-api.onrender.com](https://scriptures-fast-api.onrender.com)
+- **🔒 Secure** - Built with security best practices and regular vulnerability scanning
 
 
 ## 🚀 Getting Started
