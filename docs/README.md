@@ -9,7 +9,7 @@ Start here if you're just getting started:
 1. **[Project Overview](../README.md)** - What Fast Scriptures is and what it does
 2. **[Developer Guide](./developer-guide.md)** - Complete setup, workflow, and first contribution
 3. **[Contributing Guidelines](../CONTRIBUTING.md)** - How to contribute effectively
-4. **[Architecture Overview](./architecture.md)** *(Coming Soon)* - How the system works
+4. **[Architecture Overview](./architecture.md)** - How the system works
 
 ## 🛠️ Development & Testing
 
@@ -81,7 +81,7 @@ Detailed technical references:
 | [Automation Guide](./automation-guide.md) | ✅ Complete | Current | Developers |
 | [Contributing Guidelines](../CONTRIBUTING.md) | ✅ Complete | Current | Contributors |
 | [Submodules Guide](./submodules.md) | ✅ Complete | Current | Developers |
-| **Architecture Overview** | 🚧 Coming Soon | - | All |
+| [Architecture Overview](./architecture.md) | ✅ Complete | Current | All |
 
 ## 🤔 Can't Find What You Need?
 
