@@ -1,6 +1,43 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* TailwindCSS v4 Theme Configuration */
+@theme {
+  /* Content paths for scanning classes */
+  --content: "./index.html", "./src/**/*.{js,ts,jsx,tsx}";
+
+  /* Dark mode configuration */
+  --dark-mode: class;
+
+  /* Custom colors */
+  --color-cursor-bg: #0d1117;
+  --color-cursor-surface: #161b22;
+  --color-cursor-border: #30363d;
+  --color-cursor-text: #c9d1d9;
+  --color-cursor-text-muted: #8b949e;
+  --color-cursor-accent: #58a6ff;
+  --color-cursor-accent-muted: #1f6feb;
+  --color-cursor-success: #238636;
+  --color-cursor-warning: #d29922;
+  --color-cursor-error: #f85149;
+
+  /* Font families */
+  --font-mono: JetBrains Mono, Fira Code, Consolas, Monaco, monospace;
+  --font-sans: Inter, system-ui, sans-serif;
+
+  /* Font sizes */
+  --font-size-xs: 0.75rem;
+  --line-height-xs: 1rem;
+  --font-size-sm: 0.875rem;
+  --line-height-sm: 1.25rem;
+  --font-size-base: 0.9375rem;
+  --line-height-base: 1.5rem;
+  --font-size-lg: 1.0625rem;
+  --line-height-lg: 1.75rem;
+  --font-size-xl: 1.1875rem;
+  --line-height-xl: 1.75rem;
+  --font-size-2xl: 1.3125rem;
+  --line-height-2xl: 2rem;
+}
 
 /* Custom scrollbar for the hacker aesthetic */
 ::-webkit-scrollbar {
