@@ -14,21 +14,22 @@
     "test:coverage": "vitest --coverage"
   },
   "dependencies": {
-    "axios": "^1.6.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.20.1"
+    "@tailwindcss/postcss": "^4.1.17",
+    "axios": "^1.13.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.31.0",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^14.1.2",
-    "@types/react": "^18.2.37",
-    "@types/react-dom": "^18.2.15",
+    "@types/react": "^18.3.27",
+    "@types/react-dom": "^18.3.7",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react": "^4.1.1",
-    "@vitest/coverage-v8": "^1.6.1",
+    "@vitest/coverage-v8": "^4.0.10",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.53.0",
     "eslint-plugin-react": "^7.37.5",
@@ -36,9 +37,9 @@
     "eslint-plugin-react-refresh": "^0.4.4",
     "jsdom": "^23.0.1",
     "postcss": "^8.4.31",
-    "tailwindcss": "^3.3.5",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.0",
-    "vitest": "^1.0.4"
+    "tailwindcss": "^4.1.17",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.2",
+    "vitest": "^4.0.10"
   }
 }
