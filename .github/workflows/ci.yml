@@ -92,8 +92,7 @@ jobs:
     - name: Run type checking
       run: |
         cd frontend
-        echo "Skipping TypeScript type checking for now - will fix type issues in a separate PR"
-        # npx tsc --noEmit
+        npx tsc --noEmit
 
     - name: Run tests
       run: |
@@ -137,8 +136,7 @@ jobs:
     - name: Run npm audit
       run: |
         cd frontend
-        echo "Skipping npm audit for now - will address security issues in a separate PR"
-        # npm audit --audit-level=moderate
+        npm audit --audit-level=moderate
 
   dependency-check:
     runs-on: ubuntu-latest
