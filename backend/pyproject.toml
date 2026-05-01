@@ -1,6 +1,6 @@
 [project]
 name = "fast-scriptures-backend"
-version = "1.5.0"
+version = "1.6.0"
 description = "FastAPI backend for LDS scripture reading application"
 authors = [
     {name = "Fast Scriptures Team"}
